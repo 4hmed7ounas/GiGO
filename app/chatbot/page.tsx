@@ -28,10 +28,10 @@ export default function Chatbot() {
   const [isLoading, setIsLoading] = useState(false);
   const [randomQuestions, setRandomQuestions] = useState<CustomQuestion[]>([]);
 
-  const API_KEY = "AIzaSyCyjCh7BYvN97CeFr0mQZz4fOqT3syVOCg";
+  const API_KEY = process.env.GOOGLE_API_KEY;
   const MODEL_NAME = "gemini-1.0-pro-001";
 
-  const genAI = new GoogleGenerativeAI(API_KEY);
+  const genAI = new GoogleGenerativeAI(API_KEY || '');
 
   const generationConfig = {
     temperature: 0.9,
