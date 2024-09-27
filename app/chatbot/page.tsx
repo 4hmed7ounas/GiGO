@@ -74,12 +74,12 @@ export default function Chatbot() {
           });
         setChat(newChat);
       } catch (error) {
-        setError("Failed to initialize chat. Please try again");
+        setError("Failed to initialize chat. Please try again.");
       }
     };
 
     initChat();
-  }, [genAI, generationConfig, safetySettings, messages]); // Add dependencies
+  }, [genAI, generationConfig, safetySettings, messages]);
 
   useEffect(() => {
     const getRandomQuestions = () => {
@@ -88,7 +88,6 @@ export default function Chatbot() {
     };
 
     setRandomQuestions(getRandomQuestions());
-
     const interval = setInterval(() => {
       setRandomQuestions(getRandomQuestions());
     }, 10000);
@@ -99,8 +98,10 @@ export default function Chatbot() {
   const checkCustomQuestions = (input: string): string | null => {
     const lowercaseInput = input.toLowerCase();
     for (const qa of customQuestions) {
-      if (lowercaseInput.includes(qa.question.toLowerCase()) || 
-          qa.question.toLowerCase().includes(lowercaseInput)) {
+      if (
+        lowercaseInput.includes(qa.question.toLowerCase()) ||
+        qa.question.toLowerCase().includes(lowercaseInput)
+      ) {
         return qa.answer;
       }
     }
