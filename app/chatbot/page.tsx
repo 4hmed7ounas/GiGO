@@ -27,6 +27,11 @@ export default function Chatbot() {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [randomQuestions, setRandomQuestions] = useState<CustomQuestion[]>([]);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const API_KEY = process.env.GOOGLE_API_KEY;
   const MODEL_NAME = "gemini-1.0-pro-001";
@@ -151,6 +156,10 @@ export default function Chatbot() {
       handleSendMessage();
     }
   };
+
+  if (!isClient) {
+    return null;
+  }
 
   return (
     <div className="flex flex-col w-[25%] h-[85%] bg-gray-100 absolute bottom-0 right-4 rounded-lg shadow-xl overflow-hidden">

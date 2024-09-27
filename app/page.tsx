@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="h-screen bg-white">
       <Hero />
-      <Chatbot/>
+      {/* <Chatbot/> */}
     </div>
   );
 }
