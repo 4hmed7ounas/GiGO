@@ -1,0 +1,66 @@
+[
+    {
+        "question": "What makes GIGO different from other freelancing platforms?",
+        "answer": "GIGO stands out by offering a streamlined, user-friendly interface with fewer restrictions than traditional platforms like Fiverr and Upwork. It prioritizes new freelancers, giving them better visibility and more opportunities to grow their careers. Features like real-time chat, integrated payments, and AI assistance enhance the user experience."
+    },
+    {
+        "question": "What technology stack does GIGO use?",
+        "answer": "GIGO is built using the MERN stack, which includes MongoDB, Express.js, React, and Node.js. It also utilizes cloud platforms such as Netlify, Vercel, AWS, or Azure for deployment, ensuring scalability and reliability."
+    },
+    {
+        "question": "What types of services are offered on GIGO?",
+        "answer": "GIGO offers a wide range of freelancing services, including web development, graphic design, content writing, digital marketing, and more. Freelancers can list their specialized skills and connect with clients looking for specific services."
+    },
+    {
+        "question": "How does GIGO handle payments?",
+        "answer": "GIGO integrates secure payment gateways that allow clients and freelancers to conduct transactions smoothly. Payments are held in escrow until project completion, ensuring security and transparency for both parties."
+    },
+    {
+        "question": "Does GIGO support multiple languages?",
+        "answer": "Yes, GIGO supports multi-language functionality, allowing users from different parts of the world to use the platform in their preferred language, enhancing global accessibility."
+    },
+    {
+        "question": "How does the AI assistant work on GIGO?",
+        "answer": "GIGO’s AI assistant helps users with various tasks such as project management, answering queries, and offering suggestions for proposals. It enhances user productivity and simplifies the freelancing process."
+    },
+    {
+        "question": "What is the role of discussion forums on GIGO?",
+        "answer": "The discussion forums on GIGO provide a space for freelancers and clients to exchange ideas, share experiences, ask for advice, and network within the freelancing community. This helps build stronger professional relationships."
+    },
+    {
+        "question": "Can freelancers from any country join GIGO?",
+        "answer": "Yes, GIGO is open to freelancers from all over the world. The platform promotes a global freelancing community, giving freelancers from different countries the opportunity to offer their services and connect with clients globally."
+    },
+    {
+        "question": "How does GIGO help new freelancers?",
+        "answer": "GIGO provides better visibility for new freelancers by minimizing competition with established freelancers. The platform’s algorithm ensures new users get a fair chance to be noticed by clients."
+    },
+    {
+        "question": "How does GIGO ensure project quality?",
+        "answer": "GIGO allows clients to review freelancers’ work, rate their performance, and provide feedback. This helps maintain the quality of services and allows freelancers to build their reputations based on their work."
+    },
+    {
+        "question": "What types of client reviews are available on GIGO?",
+        "answer": "Clients can leave detailed reviews of freelancers, including ratings on communication, quality of work, timeliness, and overall satisfaction. These reviews help future clients in selecting the right freelancers."
+    },
+    {
+        "question": "Does GIGO offer advanced search filters?",
+        "answer": "Yes, GIGO provides advanced search filters that allow clients to quickly find freelancers based on skills, location, experience, ratings, and other criteria, making the hiring process more efficient."
+    },
+    {
+        "question": "How does GIGO handle disputes between clients and freelancers?",
+        "answer": "GIGO has a dispute resolution system in place. If a client or freelancer is unsatisfied with the outcome of a project, they can file a dispute, and GIGO’s support team will mediate to find a fair solution."
+    },
+    {
+        "question": "Is GIGO mobile-friendly?",
+        "answer": "Yes, GIGO is optimized for mobile use, allowing freelancers and clients to manage their projects, chat in real-time, and handle payments from their smartphones and tablets."
+    },
+    {
+        "question": "What are the benefits of GIGO's real-time chat feature?",
+        "answer": "GIGO’s real-time chat feature enables clients and freelancers to communicate instantly, discuss project details, clarify requirements, and provide updates. This improves collaboration and ensures projects are completed efficiently."
+    },
+    {
+        "question": "What security measures does GIGO implement?",
+        "answer": "GIGO uses encryption and secure payment gateways to protect user data and financial transactions. Additionally, the platform implements user authentication and data privacy protocols to ensure a secure freelancing environment."
+    }
+]
