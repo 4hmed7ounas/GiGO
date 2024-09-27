@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
   GoogleGenerativeAI,
   HarmCategory,
@@ -36,16 +36,16 @@ export default function Chatbot() {
   const API_KEY = process.env.GOOGLE_API_KEY;
   const MODEL_NAME = "gemini-1.0-pro-001";
 
-  const genAI = new GoogleGenerativeAI(API_KEY || '');
+  const genAI = useMemo(() => new GoogleGenerativeAI(API_KEY || ''), [API_KEY]);
 
-  const generationConfig = {
+  const generationConfig = useMemo(() => ({
     temperature: 0.9,
     topK: 1,
     topP: 1,
     maxOutputTokens: 2048,
-  };
+  }), []);
 
-  const safetySettings = [
+  const safetySettings = useMemo(() => [
     {
       category: HarmCategory.HARM_CATEGORY_HARASSMENT,
       threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
@@ -62,7 +62,7 @@ export default function Chatbot() {
       category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
       threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
     },
-  ];
+  ], []);
 
   useEffect(() => {
     const initChat = async () => {
@@ -78,13 +78,14 @@ export default function Chatbot() {
             })) as Content[],
           });
         setChat(newChat);
-      } catch (error) {
+      } catch (err) {
+        console.error("Failed to initialize chat:", err);
         setError("Failed to initialize chat. Please try again");
       }
     };
 
     initChat();
-  }, []);
+  }, [genAI, generationConfig, messages, safetySettings]);
 
   useEffect(() => {
     const getRandomQuestions = () => {
@@ -143,7 +144,8 @@ export default function Chatbot() {
         };
         setMessages((prevMessages) => [...prevMessages, botMessage]);
       }
-    } catch (error) {
+    } catch (err) {
+      console.error("Failed to send message:", err);
       setError("Failed to send message. Please try again.");
     } finally {
       setIsLoading(false);
