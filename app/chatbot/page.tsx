@@ -74,12 +74,12 @@ export default function Chatbot() {
           });
         setChat(newChat);
       } catch (error) {
-        setError("Failed to initialize chat. Please try again.");
+        setError("Failed to initialize chat. Please try again");
       }
     };
 
     initChat();
-  }, [genAI, generationConfig, safetySettings, messages]);
+  }, []);
 
   useEffect(() => {
     const getRandomQuestions = () => {
@@ -88,6 +88,7 @@ export default function Chatbot() {
     };
 
     setRandomQuestions(getRandomQuestions());
+
     const interval = setInterval(() => {
       setRandomQuestions(getRandomQuestions());
     }, 10000);
@@ -98,10 +99,8 @@ export default function Chatbot() {
   const checkCustomQuestions = (input: string): string | null => {
     const lowercaseInput = input.toLowerCase();
     for (const qa of customQuestions) {
-      if (
-        lowercaseInput.includes(qa.question.toLowerCase()) ||
-        qa.question.toLowerCase().includes(lowercaseInput)
-      ) {
+      if (lowercaseInput.includes(qa.question.toLowerCase()) || 
+          qa.question.toLowerCase().includes(lowercaseInput)) {
         return qa.answer;
       }
     }
@@ -162,16 +161,21 @@ export default function Chatbot() {
         {messages.map((msg, index) => (
           <div
             key={index}
-            className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+            className={`flex ${
+              msg.role === "user" ? "justify-end" : "justify-start"
+            }`}
           >
             <div
               className={`max-w-[75%] p-3 rounded-lg shadow-md ${
-                msg.role === "user" ? "bg-blue-500 text-white" : "bg-white text-gray-800"
+                msg.role === "user"
+                  ? "bg-blue-500 text-white"
+                  : "bg-white text-gray-800"
               }`}
             >
               <p className="text-sm leading-relaxed">{msg.text}</p>
               <p className="text-xs mt-2 opacity-70">
-                {msg.role === "bot" ? "GiGO" : "You"} - {msg.timeStamp.toLocaleTimeString()}
+                {msg.role === "bot" ? "GiGO" : "You"} -{" "}
+                {msg.timeStamp.toLocaleTimeString()}
               </p>
             </div>
           </div>
@@ -206,10 +210,24 @@ export default function Chatbot() {
           />
           <button
             onClick={() => handleSendMessage()}
+            className={`p-2 rounded-md text-white font-semibold text-sm transition-colors duration-200 ease-in-out ${
+              isLoading
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-blue-500 hover:bg-blue-600 active:bg-blue-700"
+            }`}
             disabled={isLoading}
-            className={`p-2 bg-blue-600 text-white rounded-md ${isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700 transition-colors duration-200 ease-in-out"}`}
           >
-            Send
+            {isLoading ? (
+              <span className="flex items-center">
+                <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Sending...
+              </span>
+            ) : (
+              "Send"
+            )}
           </button>
         </div>
       </div>
