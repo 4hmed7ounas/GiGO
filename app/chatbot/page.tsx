@@ -8,6 +8,7 @@ import {
   Content,
 } from "@google/generative-ai";
 import customQuestions from './data.json';
+import { IoIosArrowDropdown, IoIosArrowDropup } from "react-icons/io";
 
 interface Message {
   text: string;
@@ -169,11 +170,11 @@ export default function Chatbot() {
   }
 
   return (
-    <div className={`flex flex-col ${isExpanded ? 'w-[25%] h-[85%]' : 'w-[25%] h-[50px]'} bg-gray-100 absolute bottom-0 right-4 rounded-lg shadow-xl overflow-hidden transition-all duration-300`}>
+    <div className={`flex flex-col ${isExpanded ? 'w-[25%] h-[85%]' : 'w-[25%] h-[50px]'} bg-gray-100 absolute bottom-0 right-4 shadow-xl overflow-hidden transition-all duration-300`}>
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-4 shadow-md flex justify-between items-center">
         <h1 className="text-2xl font-bold">GiGO Chat</h1>
         <button onClick={toggleExpand} className="text-white focus:outline-none">
-          {isExpanded ? '▼' : '▲'}
+          {isExpanded ? <IoIosArrowDropdown/> : <IoIosArrowDropup/>}
         </button>
       </div>
       {isExpanded && (
