@@ -11,8 +11,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={DMSans.className}>{children}</body>
-      <Chatbot/>
+      <body className={DMSans.className}>
+        {children}
+        <Chatbot />
+      </body>
     </html>
   );
 }

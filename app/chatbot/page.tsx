@@ -33,7 +33,7 @@ export default function Chatbot() {
     setIsClient(true);
   }, []);
 
-  const API_KEY = process.env.GOOGLE_API_KEY;
+  const API_KEY = "AIzaSyCyjCh7BYvN97CeFr0mQZz4fOqT3syVOCg";
   const MODEL_NAME = "gemini-1.0-pro-001";
 
   const genAI = useMemo(() => new GoogleGenerativeAI(API_KEY || ''), [API_KEY]);
@@ -74,13 +74,13 @@ export default function Chatbot() {
             safetySettings,
             history: messages.map((msg) => ({
               parts: [{ text: msg.text }],
-              role: msg.role,
+              role: msg.role === 'bot' ? 'model' : msg.role,
             })) as Content[],
           });
         setChat(newChat);
       } catch (err) {
         console.error("Failed to initialize chat:", err);
-        setError("Failed to initialize chat. Please try again");
+        // setError("Failed to initialize chat. Please try again");
       }
     };
 
@@ -131,7 +131,7 @@ export default function Chatbot() {
       if (customAnswer) {
         const botMessage: Message = {
           text: customAnswer,
-          role: "bot",
+          role: "model", // Changed from 'bot' to 'model'
           timeStamp: new Date(),
         };
         setMessages((prevMessages) => [...prevMessages, botMessage]);
@@ -139,7 +139,7 @@ export default function Chatbot() {
         const result = await chat.sendMessage(input);
         const botMessage: Message = {
           text: result.response.text(),
-          role: "bot",
+          role: "model", // Changed from 'bot' to 'model'
           timeStamp: new Date(),
         };
         setMessages((prevMessages) => [...prevMessages, botMessage]);
@@ -185,7 +185,7 @@ export default function Chatbot() {
             >
               <p className="text-sm leading-relaxed">{msg.text}</p>
               <p className="text-xs mt-2 opacity-70">
-                {msg.role === "bot" ? "GiGO" : "You"} -{" "}
+                {msg.role === "model" ? "GiGO" : "You"} -{" "}
                 {msg.timeStamp.toLocaleTimeString()}
               </p>
             </div>
