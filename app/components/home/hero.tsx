@@ -1,7 +1,11 @@
+import Header1 from '@/app/components/header';
+import Header2 from '@/app/components/footer';
+
 export const Hero = () => {
   return (
     <>
-      <h1 className="">Hy i am home page</h1>
+      <Header1 />
+      <Header2 />
     </>
   );
 };
