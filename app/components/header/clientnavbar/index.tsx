@@ -16,6 +16,7 @@ import { useState } from "react";
 import Button from "../../button";
 import { FaBell, FaEnvelope } from "react-icons/fa";
 import { IMAGES } from "@/share/assets";
+import Image from "next/image";
 
 const navigation = [{ name: "Orders", href: "/", current: false }];
 
@@ -45,7 +46,7 @@ export default function ClientNavbar() {
             </DisclosureButton>
           </div>
           <div className="flex flex-shrink-0 items-center">
-            <img
+            <Image
               alt="GiGO."
               src={IMAGES.gigo}
               className="h-8 w-auto"
@@ -110,7 +111,7 @@ export default function ClientNavbar() {
                 <MenuButton className="relative flex rounded-full bg-gray-800 text-sm">
                   <span className="absolute -inset-1.5" />
                   <span className="sr-only">Open user menu</span>
-                  <img
+                  <Image
                     alt=""
                     src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="
                     className="h-8 w-8 rounded-full"

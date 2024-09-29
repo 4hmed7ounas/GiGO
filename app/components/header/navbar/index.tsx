@@ -11,6 +11,7 @@ import InputField from "../../input";
 import { useState } from "react";
 import Button from "../../button";
 import { IMAGES } from "@/share/assets";
+import Image from "next/image";
 
 const navigation = [
   { name: "Become a Seller", href: "/auth/signup", current: false },
@@ -44,7 +45,7 @@ export default function Navbar() {
             </DisclosureButton>
           </div>
           <div className="flex flex-shrink-0 items-center">
-            <img alt="GiGO." src={IMAGES.gigo} className="h-8 w-auto" />
+            <Image alt="GiGO." src={IMAGES.gigo} className="h-8 w-auto" />
           </div>
           <div className="flex flex-1 items-center justify-between">
             <div className="w-[70%] hidden lg:ml-6 lg:block">

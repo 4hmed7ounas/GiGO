@@ -11,9 +11,9 @@ import {
 import Link from "next/link";
 import { CiMenuBurger } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
-import { useState } from "react";
 import { FaBell, FaEnvelope } from "react-icons/fa";
 import { IMAGES } from "@/share/assets";
+import Image from "next/image";
 
 const navigation = [
   { name: "Dashboard", href: "/", current: true },
@@ -27,10 +27,6 @@ function classNames(...classes: (string | boolean)[]) {
 }
 
 export default function FreelancerNavbar() {
-  const [search, setSearch] = useState("");
-  const handleSearch = () => {
-    setSearch("");
-  };
   return (
     <Disclosure as="nav" className="bg-gray-800 fixed top-0 left-0 right-0">
       <div className="mx-auto max-w-[90%] px-2 lg:px-6 xl:px-8">
@@ -49,11 +45,7 @@ export default function FreelancerNavbar() {
           </div>
           <div className="flex flex-1 items-center space-x-6">
             <div className="flex flex-shrink-0 items-center">
-              <img
-                alt="GiGo."
-                src={IMAGES.gigo}
-                className="h-8 w-auto"
-              />
+              <Image alt="GiGo." src={IMAGES.gigo} className="h-8 w-auto" />
             </div>
             <div className="hidden lg:ml-6 lg:block">
               <div className="flex space-x-2 items-center">
@@ -97,7 +89,7 @@ export default function FreelancerNavbar() {
                 <MenuButton className="relative flex rounded-full bg-gray-800 text-sm">
                   <span className="absolute -inset-1.5" />
                   <span className="sr-only">Open user menu</span>
-                  <img
+                  <Image
                     alt=""
                     src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="
                     className="h-8 w-8 rounded-full"

@@ -1,4 +1,5 @@
 import { IMAGES } from '@/share/assets';
+import Image from 'next/image';
 import React from 'react';
 
 export default function Layout({
@@ -9,7 +10,7 @@ export default function Layout({
   return (
     <div className="flex bg-white">
       <div className="hidden md:flex w-1/2 items-center justify-center">
-        <img src={IMAGES.authImage} alt="Auth Image" className="w-full h-screen object-cover" />
+        <Image src={IMAGES.authImage} alt="Auth Image" className="w-full h-screen object-cover" />
       </div>
       <div className="w-full md:w-1/2">
         {children}
