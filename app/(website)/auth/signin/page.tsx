@@ -4,25 +4,48 @@ import InputField from "@/app/components/input";
 import Button from "@/app/components/button";
 import { FaGoogle } from "react-icons/fa";
 import Link from "next/link";
+import { auth } from "../../../firebase/config";
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { useRouter } from 'next/navigation'; // Importing useRouter for navigation
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const router = useRouter(); // Initialize useRouter
 
-  const handleLogin = () => {
-    console.log("Logging in:", { email, password });
-    setEmail("");
-    setPassword("");
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log("Logged in:", { email });
+      setEmail("");
+      setPassword("");
+      router.push('/'); // Redirect to home screen after login
+    } catch (error) {
+      setError("Failed to log in. Please check your credentials.");
+      console.error("Login error:", error);
+    }
   };
 
-  const handleGoogleLogin = () => {
-    console.log("Logging in with Google");
+  const handleGoogleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+      console.log("Logged in with Google");
+      router.push('/'); // Redirect to home screen after Google login
+    } catch (error) {
+      console.error("Google login error:", error);
+    }
   };
 
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="w-[80%] lg:w-[50%]">
         <h2 className="text-black font-bold text-3xl mb-3">Login</h2>
+        {error && <p className="text-red-500">{error}</p>}
         <form className="flex flex-col" onSubmit={handleLogin}>
           <span className="text-md text-black">Email</span>
           <InputField

@@ -13,7 +13,7 @@ import Button from "../../button";
 import { IMAGES } from "@/share/assets";
 
 const navigation = [
-  { name: "Become a Seller", href: "/", current: false },
+  { name: "Become a Seller", href: "/auth/signup", current: false },
   { name: "Signup", href: "/auth/signup", current: false },
   { name: "Login", href: "/auth/signin", current: false },
 ];
@@ -44,11 +44,7 @@ export default function Navbar() {
             </DisclosureButton>
           </div>
           <div className="flex flex-shrink-0 items-center">
-            <img
-              alt="GiGO."
-              src={IMAGES.gigo}
-              className="h-8 w-auto"
-            />
+            <img alt="GiGO." src={IMAGES.gigo} className="h-8 w-auto" />
           </div>
           <div className="flex flex-1 items-center justify-between">
             <div className="w-[70%] hidden lg:ml-6 lg:block">
