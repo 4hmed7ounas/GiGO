@@ -4,8 +4,8 @@ import InputField from "@/app/components/input";
 import Button from "@/app/components/button";
 import { FaGoogle } from "react-icons/fa";
 import Link from "next/link";
+import {useCreateUserWithEmailAndPassword} from "react-firebase-hooks/auth"
 import { auth } from "../../../firebase/config";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from 'next/navigation';
 
 const Signup: React.FC = () => {
@@ -16,6 +16,8 @@ const Signup: React.FC = () => {
   const [phone, setPhone] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
+
+  const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,18 +34,15 @@ const Signup: React.FC = () => {
     }
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      console.log("User signed up:", {
-        email,
-        username,
-        phone,
-      });
+      const res = await createUserWithEmailAndPassword(email, password);
+      console.log(res);
+      router.push('../../profile/user');
+      sessionStorage.setItem("user", "true");
       setEmail("");
+      setUsername("");
       setPassword("");
       setConfirmPassword("");
-      setUsername("");
       setPhone("");
-      router.push('/');
     } catch (error) {
       setError("Failed to sign up. Please try again.");
       console.error("Signup error:", error);
