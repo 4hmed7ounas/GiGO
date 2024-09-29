@@ -4,9 +4,10 @@ import InputField from "@/app/components/input";
 import Button from "@/app/components/button";
 import { FaGoogle } from "react-icons/fa";
 import Link from "next/link";
-import {useCreateUserWithEmailAndPassword} from "react-firebase-hooks/auth"
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "../../../firebase/config";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 const Signup: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -17,7 +18,8 @@ const Signup: React.FC = () => {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
+  const [createUserWithEmailAndPassword] =
+    useCreateUserWithEmailAndPassword(auth);
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,9 +36,8 @@ const Signup: React.FC = () => {
     }
 
     try {
-      const res = await createUserWithEmailAndPassword(email, password);
-      console.log(res);
-      router.push('../../profile/user');
+      await createUserWithEmailAndPassword(email, password);
+      router.push("../../profile/user");
       sessionStorage.setItem("user", "true");
       setEmail("");
       setUsername("");
@@ -45,12 +46,17 @@ const Signup: React.FC = () => {
       setPhone("");
     } catch (error) {
       setError("Failed to sign up. Please try again.");
-      console.error("Signup error:", error);
     }
   };
 
-  const handleGoogleSignup = () => {
-    console.log("Signing up with Google");
+  const handleGoogleSignup = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+      router.push("../../profile/freelancer");
+    } catch (error) {
+      setError("Failed to log in. Please try again later.");
+    }
   };
 
   return (

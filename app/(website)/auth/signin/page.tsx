@@ -22,15 +22,13 @@ const Login: React.FC = () => {
     setError("");
 
     try {
-      const res = await signInWithEmailAndPassword(email, password);
-      console.log(res);
+      await signInWithEmailAndPassword(email, password);
       sessionStorage.setItem("user", "true");
       router.push("../../profile/freelancer");
       setEmail("");
       setPassword("");
     } catch (error) {
       setError("Failed to log in. Please check your credentials.");
-      console.error("Login error:", error);
     }
   };
 
@@ -39,9 +37,8 @@ const Login: React.FC = () => {
     try {
       await signInWithPopup(auth, provider);
       router.push("../../profile/freelancer");
-      console.log("Logged in with Google");
     } catch (error) {
-      console.error("Google login error:", error);
+      setError("Failed to log in. Please try again later.");
     }
   };
 
