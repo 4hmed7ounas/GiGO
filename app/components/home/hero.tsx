@@ -1,4 +1,4 @@
-import FreelancerNavbar from "../header/freelancernavbar";
+// import FreelancerNavbar from "../header/freelancernavbar";
 import Navbar from "../header/navbar";
 
 export const Hero = () => {
