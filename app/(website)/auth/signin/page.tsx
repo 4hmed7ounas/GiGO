@@ -33,7 +33,9 @@ const Login: React.FC = () => {
       setEmail("");
       setPassword("");
     } catch (e) {
-      setError("Failed to log in. Please check your credentials or if the user exists.");
+      setError(
+        "Failed to log in. Please check your credentials or if the user exists."
+      );
       console.error("Login error:", e);
     }
   };

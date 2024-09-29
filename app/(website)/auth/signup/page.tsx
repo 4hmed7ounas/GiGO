@@ -38,7 +38,7 @@ const Signup: React.FC = () => {
 
     try {
       await createUserWithEmailAndPassword(email, password);
-      router.push("../../profile/user");
+      router.push("/options");
       sessionStorage.setItem("user", "true");
       setEmail("");
       setUsername("");
@@ -70,7 +70,8 @@ const Signup: React.FC = () => {
         </h2>
         {error && <p className="text-red-500">{error}</p>}
         <form className="flex flex-col" onSubmit={handleSignup}>
-          <span className="text-md text-black">Name</span> {/* Added Name field */}
+          <span className="text-md text-black">Name</span>{" "}
+          {/* Added Name field */}
           <InputField
             type="text"
             placeholder="Full Name"
