@@ -1,11 +1,9 @@
-import Header1 from '@/app/components/header';
-import Header2 from '@/app/components/footer';
+import Navbar from "../header/navbar";
 
 export const Hero = () => {
   return (
     <>
-      <Header1 />
-      <Header2 />
+      <Navbar />
     </>
   );
 };
