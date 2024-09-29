@@ -4,29 +4,31 @@ import InputField from "@/app/components/input";
 import Button from "@/app/components/button";
 import { FaGoogle } from "react-icons/fa";
 import Link from "next/link";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "../../../firebase/config";
-import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { useRouter } from 'next/navigation'; // Importing useRouter for navigation
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { useRouter } from "next/navigation";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const router = useRouter(); // Initialize useRouter
+  const router = useRouter();
+
+  const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      console.log("Logged in:", { email });
+      await signInWithEmailAndPassword(email, password);
+      sessionStorage.setItem("user", "true");
+      router.push("../../profile/freelancer");
       setEmail("");
       setPassword("");
-      router.push('/'); // Redirect to home screen after login
     } catch (error) {
       setError("Failed to log in. Please check your credentials.");
-      console.error("Login error:", error);
     }
   };
 
@@ -34,10 +36,9 @@ const Login: React.FC = () => {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
-      console.log("Logged in with Google");
-      router.push('/'); // Redirect to home screen after Google login
+      router.push("../../profile/freelancer");
     } catch (error) {
-      console.error("Google login error:", error);
+      setError("Failed to log in. Please try again later.");
     }
   };
 

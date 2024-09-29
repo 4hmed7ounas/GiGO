@@ -14,6 +14,7 @@ import { RxCross1 } from "react-icons/rx";
 import { FaBell, FaEnvelope } from "react-icons/fa";
 import { IMAGES } from "@/share/assets";
 import Image from "next/image";
+import { useRouter } from "next/navigation"; // Import useRouter for navigation
 
 const navigation = [
   { name: "Dashboard", href: "/", current: true },
@@ -26,7 +27,18 @@ function classNames(...classes: (string | boolean)[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function FreelancerNavbar() {
+interface FreelancerNavbarProps {
+  onSignOut: () => Promise<void>; // Define the prop type for onSignOut
+}
+
+export default function FreelancerNavbar({ onSignOut }: FreelancerNavbarProps) {
+  const router = useRouter(); // Initialize router
+
+  const handleSignOut = async () => {
+    await onSignOut(); // Call the passed in onSignOut function
+    router.push("/"); // Redirect to home or login page after sign out
+  };
+
   return (
     <Disclosure as="nav" className="bg-gray-800 fixed top-0 left-0 right-0">
       <div className="mx-auto max-w-[90%] px-2 lg:px-6 xl:px-8">
@@ -91,7 +103,7 @@ export default function FreelancerNavbar() {
                   <span className="sr-only">Open user menu</span>
                   <Image
                     alt=""
-                    src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="
+                    src={IMAGES.gigo}
                     className="h-8 w-8 rounded-full"
                   />
                 </MenuButton>
@@ -117,12 +129,12 @@ export default function FreelancerNavbar() {
                   </Link>
                 </MenuItem>
                 <MenuItem>
-                  <Link
-                    href="/"
-                    className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
+                  <button
+                    onClick={handleSignOut} // Use the handleSignOut function
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
                   >
                     Sign out
-                  </Link>
+                  </button>
                 </MenuItem>
               </MenuItems>
             </Menu>
