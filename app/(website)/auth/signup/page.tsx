@@ -15,6 +15,7 @@ const Signup: React.FC = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phone, setPhone] = useState("");
+  const [name, setName] = useState(""); // Added name state
   const [error, setError] = useState("");
   const router = useRouter();
 
@@ -44,8 +45,10 @@ const Signup: React.FC = () => {
       setPassword("");
       setConfirmPassword("");
       setPhone("");
+      setName(""); // Reset name state
     } catch (error) {
       setError("Failed to sign up. Please try again.");
+      console.error("Signup error:", error);
     }
   };
 
@@ -55,7 +58,7 @@ const Signup: React.FC = () => {
       await signInWithPopup(auth, provider);
       router.push("../../profile/freelancer");
     } catch (error) {
-      setError("Failed to log in. Please try again later.");
+      console.error("Google login error:", error);
     }
   };
 
@@ -67,6 +70,15 @@ const Signup: React.FC = () => {
         </h2>
         {error && <p className="text-red-500">{error}</p>}
         <form className="flex flex-col" onSubmit={handleSignup}>
+          <span className="text-md text-black">Name</span> {/* Added Name field */}
+          <InputField
+            type="text"
+            placeholder="Full Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required={true}
+            className="w-full p-1 mb-2 rounded border border-gray-800 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent text-black placeholder:text-sm"
+          />
           <span className="text-md text-black">Email</span>
           <InputField
             type="email"
