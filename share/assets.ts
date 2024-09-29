@@ -1,7 +1,8 @@
 import { ASSETS_BASE_URL } from "./config";
 
 export const IMAGES = {
-  logo: `${ASSETS_BASE_URL}/logo.svg`, //example
+  gigo: `${ASSETS_BASE_URL}/GiGO..png`,
+  authImage: `${ASSETS_BASE_URL}/auth.png`,
 };
 // import {IMAGES} from "@/share/assets"
 // IMAGES.logo
