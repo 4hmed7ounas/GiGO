@@ -19,16 +19,22 @@ const Login: React.FC = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-
     try {
-      await signInWithEmailAndPassword(email, password);
+      const res = await signInWithEmailAndPassword(email, password);
+      if (!res) {
+        throw new Error("Response is undefined.");
+      }
+      if (!res.user) {
+        throw new Error("User does not exist.");
+      }
+      console.log(res);
       sessionStorage.setItem("user", "true");
       router.push("../../profile/freelancer");
       setEmail("");
       setPassword("");
-    } catch (error) {
-      setError("Failed to log in. Please check your credentials.");
+    } catch (e) {
+      setError("Failed to log in. Please check your credentials or if the user exists.");
+      console.error("Login error:", e);
     }
   };
 
@@ -38,7 +44,7 @@ const Login: React.FC = () => {
       await signInWithPopup(auth, provider);
       router.push("../../profile/freelancer");
     } catch (error) {
-      setError("Failed to log in. Please try again later.");
+      console.error("Google login error:", error);
     }
   };
 
