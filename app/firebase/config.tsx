@@ -1,21 +1,18 @@
-import { initializeApp, getApps, getApp } from "firebase/app";
+// firebaseConfig.js
+import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  apiKey: "AIzaSyAbtot--xK4l38IJSUVzMixAZGPXADzbCs",
+  authDomain: "gigo-auth.firebaseapp.com",
+  projectId: "gigo-auth",
+  storageBucket: "gigo-auth.appspot.com",
+  messagingSenderId: "871006892311",
+  appId: "1:871006892311:web:a6a349cf1993e03b334752",
 };
 
 // Initialize Firebase
-// const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
-
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-
+const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-export {app, auth}
+export { auth };
