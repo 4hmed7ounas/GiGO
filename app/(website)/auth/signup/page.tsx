@@ -92,9 +92,10 @@ const Signup: React.FC = () => {
         username: finalUsername,
         uid: user.uid,
         createdAt: new Date(),
+        role: "buyer",
       });
       console.log("Google User Credential:", userCredential);
-      router.push("/options");
+      router.push("/profile/user");
       sessionStorage.setItem("user", "true");
     } catch (error) {
       setError("Failed to sign up with Google. Please try again.");

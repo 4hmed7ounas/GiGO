@@ -14,7 +14,6 @@ import { RxCross1 } from "react-icons/rx";
 import { FaBell, FaEnvelope } from "react-icons/fa";
 import { IMAGES } from "@/share/assets";
 import Image from "next/image";
-import { useRouter } from "next/navigation"; // Import useRouter for navigation
 
 const navigation = [
   { name: "Dashboard", href: "/", current: true },
@@ -28,16 +27,10 @@ function classNames(...classes: (string | boolean)[]) {
 }
 
 interface FreelancerNavbarProps {
-  onSignOut: () => Promise<void>; // Define the prop type for onSignOut
+  onSignOut: () => Promise<void>;
 }
 
 export default function FreelancerNavbar({ onSignOut }: FreelancerNavbarProps) {
-  const router = useRouter(); // Initialize router
-
-  const handleSignOut = async () => {
-    await onSignOut(); // Call the passed in onSignOut function
-    router.push("/"); // Redirect to home or login page after sign out
-  };
 
   return (
     <Disclosure as="nav" className="bg-gray-800 fixed top-0 left-0 right-0">
@@ -130,7 +123,7 @@ export default function FreelancerNavbar({ onSignOut }: FreelancerNavbarProps) {
                 </MenuItem>
                 <MenuItem>
                   <button
-                    onClick={handleSignOut} // Use the handleSignOut function
+                    onClick={onSignOut}
                     className="block w-full text-left px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
                   >
                     Sign out

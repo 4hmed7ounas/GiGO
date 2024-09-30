@@ -10,7 +10,7 @@ import {
 } from "react-firebase-hooks/auth";
 import { auth } from "../../../firebase/config";
 import { useRouter } from "next/navigation";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 
 const db = getFirestore(auth.app);
@@ -36,7 +36,23 @@ const Login: React.FC = () => {
       }
       console.log(res);
       sessionStorage.setItem("user", "true");
-      router.push("../../profile/freelancer");
+
+      // Check user role in Firestore
+      const userDocRef = doc(db, "users", res.user.uid);
+      const userDoc = await getDoc(userDocRef);
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        if (userData.role === "buyer") {
+          router.push("/profile/user");
+        } else if (userData.role === "freelancer") {
+          router.push("/profile/freelancer");
+        } else {
+          throw new Error("User role is not recognized.");
+        }
+      } else {
+        throw new Error("User document does not exist.");
+      }
+
       setEmail("");
       setPassword("");
     } catch (e) {
@@ -70,9 +86,10 @@ const Login: React.FC = () => {
         username: finalUsername,
         uid: user.uid,
         createdAt: new Date(),
+        role: "buyer",
       });
       console.log("Google User Credential:", userCredential);
-      router.push("/options");
+      router.push("/profile/user");
       sessionStorage.setItem("user", "true");
     } catch (error) {
       setError("Failed to sign in with Google. Please try again.");

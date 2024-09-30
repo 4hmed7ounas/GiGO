@@ -6,16 +6,30 @@ import Image from "next/image";
 import { IMAGES } from "@/share/assets";
 import { FaGear } from "react-icons/fa6";
 import Link from "next/link";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import { auth } from "../../firebase/config";
+import { getFirestore } from "firebase/firestore";
+
+const db = getFirestore(auth.app);
 
 const Options: React.FC = () => {
   const router = useRouter();
 
-  const handleBuyerClick = () => {
-    router.push("/profile/user");
-  };
+  const handleUserRoleClick = async (role: "buyer" | "freelancer") => {
+    const uid = auth.currentUser?.uid;
+    if (uid) {
+      const userDocRef = doc(db, "users", uid);
+      const userDoc = await getDoc(userDocRef);
+      const existingData = userDoc.exists() ? userDoc.data() : {};
 
-  const handleSellerClick = () => {
-    router.push("/profile/freelancer");
+      await setDoc(userDocRef, {
+        ...existingData,
+        role: role,
+      });
+      router.push(role === "buyer" ? "/profile/user" : "/profile/freelancer");
+    } else {
+      console.error("User is not authenticated.");
+    }
   };
 
   return (
@@ -35,12 +49,12 @@ const Options: React.FC = () => {
         <Button
           text="Become a Buyer"
           className="bg-slate-200 text-black p-10 border-2 border-gray-900 rounded-md text-xl hover:bg-slate-300"
-          onClick={handleBuyerClick}
+          onClick={() => handleUserRoleClick("buyer")}
         />
         <Button
           text="Become a Seller"
           className="bg-slate-200 text-black p-10 border-2 border-gray-900 rounded-md text-xl hover:bg-slate-300"
-          onClick={handleSellerClick}
+          onClick={() => handleUserRoleClick("freelancer")}
         />
       </div>
     </div>
