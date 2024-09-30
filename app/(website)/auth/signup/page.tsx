@@ -4,10 +4,16 @@ import InputField from "@/app/components/input";
 import Button from "@/app/components/button";
 import { FaGoogle } from "react-icons/fa";
 import Link from "next/link";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import {
+  useCreateUserWithEmailAndPassword,
+  useSignInWithGoogle,
+} from "react-firebase-hooks/auth";
 import { auth } from "../../../firebase/config";
 import { useRouter } from "next/navigation";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
+
+const db = getFirestore(auth.app);
 
 const Signup: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -15,17 +21,16 @@ const Signup: React.FC = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phone, setPhone] = useState("");
-  const [name, setName] = useState(""); // Added name state
+  const [name, setName] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
 
   const [createUserWithEmailAndPassword] =
     useCreateUserWithEmailAndPassword(auth);
+  const [signInWithGoogle] = useSignInWithGoogle(auth);
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-
     if (password.length < 8) {
       setError("Password must be at least 8 characters long.");
       return;
@@ -37,15 +42,27 @@ const Signup: React.FC = () => {
     }
 
     try {
-      await createUserWithEmailAndPassword(email, password);
-      router.push("../../profile/user");
+      const userCredential = await createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      if (!userCredential) {
+        throw new Error("User credential is undefined");
+      }
+      const user = userCredential.user;
+
+      await setDoc(doc(db, "users", user.uid), {
+        name,
+        email,
+        username,
+        phone,
+        uid: user.uid,
+        createdAt: new Date(),
+      });
+      console.log("User Credential:", userCredential);
+      router.push("/options");
       sessionStorage.setItem("user", "true");
-      setEmail("");
-      setUsername("");
-      setPassword("");
-      setConfirmPassword("");
-      setPhone("");
-      setName(""); // Reset name state
+      resetForm();
     } catch (error) {
       setError("Failed to sign up. Please try again.");
       console.error("Signup error:", error);
@@ -53,13 +70,45 @@ const Signup: React.FC = () => {
   };
 
   const handleGoogleSignup = async () => {
-    const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
-      router.push("../../profile/freelancer");
+      const userCredential = await signInWithGoogle();
+      if (!userCredential) {
+        throw new Error("User credential is undefined");
+      }
+      const user = userCredential.user;
+
+      const nameParts = user.displayName ? user.displayName.split(" ") : [];
+      const finalName =
+        nameParts.length > 2
+          ? nameParts.slice(0, 3).join(" ")
+          : user.displayName;
+      const finalUsername = finalName
+        ? finalName.replace(/\s+/g, "") + "_" + user.uid
+        : user.uid;
+
+      await setDoc(doc(db, "users", user.uid), {
+        name: finalName,
+        email: user.email,
+        username: finalUsername,
+        uid: user.uid,
+        createdAt: new Date(),
+      });
+      console.log("Google User Credential:", userCredential);
+      router.push("/options");
+      sessionStorage.setItem("user", "true");
     } catch (error) {
-      console.error("Google login error:", error);
+      setError("Failed to sign up with Google. Please try again.");
+      console.error("Google Signup error:", error);
     }
+  };
+
+  const resetForm = () => {
+    setEmail("");
+    setUsername("");
+    setPassword("");
+    setConfirmPassword("");
+    setPhone("");
+    setName("");
   };
 
   return (
@@ -70,7 +119,7 @@ const Signup: React.FC = () => {
         </h2>
         {error && <p className="text-red-500">{error}</p>}
         <form className="flex flex-col" onSubmit={handleSignup}>
-          <span className="text-md text-black">Name</span> {/* Added Name field */}
+          <span className="text-md text-black">Name</span>
           <InputField
             type="text"
             placeholder="Full Name"
@@ -131,23 +180,23 @@ const Signup: React.FC = () => {
               className="w-full bg-green-500 p-1 hover:bg-green-600 rounded-md text-white text-center"
             />
           </div>
-          <div className="mt-2">
-            <Button
-              text="Signup with"
-              icon={<FaGoogle />}
-              onClick={handleGoogleSignup}
-              className="w-full bg-red-500 p-1 hover:bg-red-600 rounded-md text-white text-center"
-            />
-          </div>
-          <div className="mt-4 text-black">
-            <p>
-              Already have an account?{" "}
-              <Link href="/auth/signin" className="text-blue-500">
-                Login
-              </Link>
-            </p>
-          </div>
         </form>
+        <div className="mt-4 flex items-center justify-center">
+          <Button
+            text="Signup with"
+            icon={<FaGoogle />}
+            onClick={handleGoogleSignup}
+            className="w-full bg-red-500 p-1 hover:bg-red-600 rounded-md text-white text-center"
+          />
+        </div>
+        <div className="mt-4 text-black">
+          <p>
+            Don&apos;t have an account?{" "}
+            <Link href="/auth/signin" className="text-blue-500">
+              Login
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
