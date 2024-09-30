@@ -24,7 +24,11 @@ function classNames(...classes: (string | boolean)[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function ClientNavbar() {
+interface ClientNavbarProps {
+  onSignOut: () => Promise<void>; // Define the prop type for onSignOut
+}
+
+export default function ClientNavbar({ onSignOut }: ClientNavbarProps) {
   const [search, setSearch] = useState("");
   const handleSearch = () => {
     setSearch("");
@@ -46,11 +50,7 @@ export default function ClientNavbar() {
             </DisclosureButton>
           </div>
           <div className="flex flex-shrink-0 items-center">
-            <Image
-              alt="GiGO."
-              src={IMAGES.gigo}
-              className="h-8 w-auto"
-            />
+            <Image alt="GiGO." src={IMAGES.gigo} className="h-8 w-auto" />
           </div>
           <div className="flex flex-1 items-center justify-between">
             <div className="w-[90%] hidden lg:ml-6 lg:block">
@@ -113,7 +113,7 @@ export default function ClientNavbar() {
                   <span className="sr-only">Open user menu</span>
                   <Image
                     alt=""
-                    src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="
+                    src={IMAGES.gigo}
                     className="h-8 w-8 rounded-full"
                   />
                 </MenuButton>
@@ -142,6 +142,7 @@ export default function ClientNavbar() {
                   <Link
                     href="/"
                     className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
+                    onClick={onSignOut}
                   >
                     Sign out
                   </Link>
