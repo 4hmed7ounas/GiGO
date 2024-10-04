@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.20.0",
     "@headlessui/react": "^2.1.8",
     "firebase": "^10.13.2",
     "next": "14.2.13",
