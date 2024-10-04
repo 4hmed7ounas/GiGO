@@ -33,7 +33,7 @@ const Options: React.FC = () => {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-primary-50">
       <div className="bg-gray-900 flex justify-center fixed top-0 right-0 left-0">
         <div className="h-20 w-[90%] flex items-center justify-between">
           <Image alt="GiGO." src={IMAGES.gigo} className="h-8 w-auto" />
@@ -45,15 +45,15 @@ const Options: React.FC = () => {
           </Link>
         </div>
       </div>
-      <div className="bg-white w-full h-screen flex justify-center gap-5 items-center">
+      <div className="bg-primary-50 w-full h-screen flex justify-center gap-5 items-center">
         <Button
           text="Become a Buyer"
-          className="bg-slate-200 text-black p-10 border-2 border-gray-900 rounded-md text-xl hover:bg-slate-300"
+          className="bg-secondary-100 text-black p-10 border-2 border-secondary-900 rounded-md text-xl hover:bg-secondary-200"
           onClick={() => handleUserRoleClick("buyer")}
         />
         <Button
           text="Become a Seller"
-          className="bg-slate-200 text-black p-10 border-2 border-gray-900 rounded-md text-xl hover:bg-slate-300"
+          className="bg-secondary-100 text-black p-10 border-2 border-secondary-900 rounded-md text-xl hover:bg-secondary-200"
           onClick={() => handleUserRoleClick("freelancer")}
         />
       </div>

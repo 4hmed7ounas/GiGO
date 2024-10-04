@@ -110,7 +110,7 @@ const Login: React.FC = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required={true}
-            className="w-full p-1 mb-2 rounded border border-gray-800 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent text-black placeholder:text-sm"
+            className="w-full p-1 mb-2 rounded border border-primary-800 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-transparent text-black placeholder:text-sm"
           />
           <span className="text-md text-black">Password</span>
           <InputField
@@ -119,13 +119,13 @@ const Login: React.FC = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required={true}
-            className="w-full p-1 mb-2 rounded border border-gray-800 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent text-black placeholder:text-sm"
+            className="w-full p-1 mb-2 rounded border border-primary-800 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-transparent text-black placeholder:text-sm"
           />
           <div className="mt-2">
             <Button
               text="Login"
               type="submit"
-              className="w-full bg-blue-500 p-1 hover:bg-blue-600 rounded-md text-white text-center"
+              className="w-full bg-primary-500 p-1 hover:bg-primary-600 rounded-md text-white text-center"
             />
           </div>
           <div className="mt-2">
@@ -133,13 +133,13 @@ const Login: React.FC = () => {
               text="Login with"
               icon={<FaGoogle />}
               onClick={handleGoogleLogin}
-              className="w-full bg-red-500 p-1 hover:bg-red-600 rounded-md text-white text-center"
+              className="w-full bg-[#DB4437] p-1 hover:bg-[#b62b1f] rounded-md text-white text-center"
             />
           </div>
           <div className="mt-4 text-black">
             <p>
               Already have an account?{" "}
-              <Link href="/auth/signup" className="text-blue-500">
+              <Link href="/auth/signup" className="text-primary-500">
                 Signup
               </Link>
             </p>

@@ -34,11 +34,11 @@ export default function ClientNavbar({ onSignOut }: ClientNavbarProps) {
     setSearch("");
   };
   return (
-    <Disclosure as="nav" className="bg-gray-800 fixed top-0 left-0 right-0">
+    <Disclosure as="nav" className="bg-primary-900 fixed top-0 left-0 right-0">
       <div className="mx-auto max-w-[90%] px-2 lg:px-6 xl:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-1/2 transform -translate-x-1/2 flex items-center lg:hidden">
-            <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white">
+            <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-primary-400 hover:bg-primary-700 hover:text-white">
               <CiMenuBurger
                 aria-hidden="true"
                 className="block h-6 w-6 group-data-[open]:hidden"
@@ -60,12 +60,12 @@ export default function ClientNavbar({ onSignOut }: ClientNavbarProps) {
                   placeholder="Search"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="w-[80%] p-2 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent text-black placeholder:text-sm"
+                  className="w-[80%] p-2 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-transparent text-black placeholder:text-sm"
                 />
                 <Button
                   text="Search"
                   onClick={handleSearch}
-                  className="bg-green-700 py-2 px-4 w-[20%] rounded-r-lg hover:bg-green-600 transition-colors duration-300 ease-in-out"
+                  className="bg-secondary-600 py-2 px-4 w-[20%] rounded-r-lg hover:bg-secondary-700 transition-colors duration-300 ease-in-out"
                 />
               </div>
             </div>
@@ -78,8 +78,8 @@ export default function ClientNavbar({ onSignOut }: ClientNavbarProps) {
                     aria-current={item.current ? "page" : undefined}
                     className={classNames(
                       item.current
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white transition-colors duration-300 ease-in-out",
+                        ? "bg-primary-900 text-white"
+                        : "text-primary-50 hover:bg-primary-700 hover:text-white transition-colors duration-300 ease-in-out",
                       "rounded-md px-3 py-2 text-sm font-medium"
                     )}
                   >
@@ -92,7 +92,7 @@ export default function ClientNavbar({ onSignOut }: ClientNavbarProps) {
           <div className="absolute inset-y-0 right-0 flex items-center px-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <button
               type="button"
-              className="relative bg-gray-800 px-2 text-gray-200 hover:text-white"
+              className="relative bg-primary-900 px-2 text-gray-200 hover:text-white"
             >
               <span className="absolute -inset-1.5" />
               <span className="sr-only">View notifications</span>
@@ -100,7 +100,7 @@ export default function ClientNavbar({ onSignOut }: ClientNavbarProps) {
             </button>
             <button
               type="button"
-              className="relative bg-gray-800 px-2 text-gray-200 hover:text-white"
+              className="relative bg-primary-900 px-2 text-gray-200 hover:text-white"
             >
               <span className="absolute -inset-1.5" />
               <span className="sr-only">View notifications</span>
@@ -108,7 +108,7 @@ export default function ClientNavbar({ onSignOut }: ClientNavbarProps) {
             </button>
             <Menu as="div" className="relative ml-3">
               <div>
-                <MenuButton className="relative flex rounded-full bg-gray-800 text-sm">
+                <MenuButton className="relative flex rounded-full bg-primary-800 text-sm">
                   <span className="absolute -inset-1.5" />
                   <span className="sr-only">Open user menu</span>
                   <Image
@@ -120,12 +120,12 @@ export default function ClientNavbar({ onSignOut }: ClientNavbarProps) {
               </div>
               <MenuItems
                 transition
-                className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+                className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-primary-50 py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
               >
                 <MenuItem>
                   <Link
                     href="/"
-                    className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
+                    className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-primary-100"
                   >
                     Your Profile
                   </Link>
@@ -133,7 +133,7 @@ export default function ClientNavbar({ onSignOut }: ClientNavbarProps) {
                 <MenuItem>
                   <Link
                     href="/"
-                    className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
+                    className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-primary-100"
                   >
                     Settings
                   </Link>
@@ -141,7 +141,7 @@ export default function ClientNavbar({ onSignOut }: ClientNavbarProps) {
                 <MenuItem>
                   <Link
                     href="/"
-                    className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
+                    className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-primary-100"
                     onClick={onSignOut}
                   >
                     Sign out
@@ -161,12 +161,12 @@ export default function ClientNavbar({ onSignOut }: ClientNavbarProps) {
               placeholder="Search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-[80%] p-2 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent text-black placeholder:text-sm"
+              className="w-[80%] p-2 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-transparent text-black placeholder:text-sm"
             />
             <Button
               text="Search"
               onClick={handleSearch}
-              className="bg-green-700 py-2 px-2 w-[20%] rounded-r-lg hover:bg-green-600 transition-colors duration-300 ease-in-out"
+              className="bg-secondary-700 py-2 px-2 w-[20%] rounded-r-lg hover:bg-secondary-600 transition-colors duration-300 ease-in-out"
             />
           </div>
           {navigation.map((item) => (
@@ -177,8 +177,8 @@ export default function ClientNavbar({ onSignOut }: ClientNavbarProps) {
               aria-current={item.current ? "page" : undefined}
               className={classNames(
                 item.current
-                  ? "bg-gray-900 text-white"
-                  : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                  ? "bg-primary-900 text-white"
+                  : "text-primary-50 hover:bg-primary-700 hover:text-white",
                 "block rounded-md px-3 py-2 text-base font-medium"
               )}
             >

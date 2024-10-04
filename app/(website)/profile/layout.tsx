@@ -1,6 +1,6 @@
 "use client";
 import FreelancerNavbar from "@/app/components/header/freelancernavbar";
-import ClientNavbar from "@/app/components/header/clientnavbar"; // Import ClientNavbar
+import ClientNavbar from "@/app/components/header/clientnavbar";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/config";
@@ -48,7 +48,7 @@ export default function Layout({
   };
 
   return (
-    <div className="flex bg-white">
+    <div className="flex h-screen bg-primary-50">
       <div>
         {role === "buyer" ? (
           <ClientNavbar onSignOut={handleSignOut} />
@@ -56,7 +56,7 @@ export default function Layout({
           <FreelancerNavbar onSignOut={handleSignOut} />
         )}
       </div>
-      <div className="w-full md:w-1/2">{children}</div>
+      <div className="w-[90%]">{children}</div>
     </div>
   );
 }

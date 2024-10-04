@@ -127,7 +127,7 @@ const Signup: React.FC = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required={true}
-            className="w-full p-1 mb-2 rounded border border-gray-800 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent text-black placeholder:text-sm"
+            className="w-full p-1 mb-2 rounded border border-primary-800 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-transparent text-black placeholder:text-sm"
           />
           <span className="text-md text-black">Email</span>
           <InputField
@@ -136,7 +136,7 @@ const Signup: React.FC = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required={true}
-            className="w-full p-1 mb-2 rounded border border-gray-800 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent text-black placeholder:text-sm"
+            className="w-full p-1 mb-2 rounded border border-primary-800 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-transparent text-black placeholder:text-sm"
           />
           <span className="text-md text-black">Username</span>
           <InputField
@@ -145,7 +145,7 @@ const Signup: React.FC = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required={true}
-            className="w-full p-1 mb-2 rounded border border-gray-800 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent text-black placeholder:text-sm"
+            className="w-full p-1 mb-2 rounded border border-primary-800 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-transparent text-black placeholder:text-sm"
           />
           <span className="text-md text-black">Password</span>
           <InputField
@@ -154,7 +154,7 @@ const Signup: React.FC = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required={true}
-            className="w-full p-1 mb-2 rounded border border-gray-800 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent text-black placeholder:text-sm"
+            className="w-full p-1 mb-2 rounded border border-primary-800 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-transparent text-black placeholder:text-sm"
           />
           <span className="text-md text-black">Confirm Password</span>
           <InputField
@@ -163,7 +163,7 @@ const Signup: React.FC = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required={true}
-            className="w-full p-1 mb-2 rounded border border-gray-800 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent text-black placeholder:text-sm"
+            className="w-full p-1 mb-2 rounded border border-primary-800 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-transparent text-black placeholder:text-sm"
           />
           <span className="text-md text-black">Phone number</span>
           <InputField
@@ -172,13 +172,13 @@ const Signup: React.FC = () => {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             required={true}
-            className="w-full p-1 mb-2 rounded border border-gray-800 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent text-black placeholder:text-sm"
+            className="w-full p-1 mb-2 rounded border border-primary-800 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-transparent text-black placeholder:text-sm"
           />
           <div className="mt-2">
             <Button
               text="Signup"
               type="submit"
-              className="w-full bg-green-500 p-1 hover:bg-green-600 rounded-md text-white text-center"
+              className="w-full bg-secondary-600 p-1 hover:bg-secondary-700 rounded-md text-white text-center"
             />
           </div>
         </form>
@@ -187,13 +187,13 @@ const Signup: React.FC = () => {
             text="Signup with"
             icon={<FaGoogle />}
             onClick={handleGoogleSignup}
-            className="w-full bg-red-500 p-1 hover:bg-red-600 rounded-md text-white text-center"
+            className="w-full bg-[#DB4437] p-1 hover:bg-[#b62b1f] rounded-md text-white text-center"
           />
         </div>
         <div className="mt-4 text-black">
           <p>
             Don&apos;t have an account?{" "}
-            <Link href="/auth/signin" className="text-blue-500">
+            <Link href="/auth/signin" className="text-primary-500">
               Login
             </Link>
           </p>
