@@ -25,7 +25,7 @@ const InputField: React.FC<InputFieldProps> = (props) => {
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      className={`${className}`}
+      className={`bg-primary-50 ${className}`}
       required={required}
     />
   );

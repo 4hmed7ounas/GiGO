@@ -1,4 +1,4 @@
-import Navbar from "../header/navbar";
+import Navbar from "../../components/header/navbar";
 
 export const Hero = () => {
   return (
