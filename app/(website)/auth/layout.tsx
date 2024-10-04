@@ -8,7 +8,7 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex bg-white">
+    <div className="flex bg-primary-50">
       <div className="hidden md:flex w-1/2 items-center justify-center">
         <Image src={IMAGES.authImage} alt="Auth Image" className="w-full h-screen object-cover" />
       </div>
