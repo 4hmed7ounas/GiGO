@@ -7,7 +7,7 @@ import {
   ChatSession,
   Content,
 } from "@google/generative-ai";
-import customQuestions from './data.json';
+import customQuestions from "./data.json";
 import { IoIosArrowDropdown, IoIosArrowDropup } from "react-icons/io";
 
 interface Message {
@@ -38,33 +38,39 @@ export default function Chatbot() {
   const API_KEY = "AIzaSyCyjCh7BYvN97CeFr0mQZz4fOqT3syVOCg";
   const MODEL_NAME = "gemini-1.0-pro-001";
 
-  const genAI = useMemo(() => new GoogleGenerativeAI(API_KEY || ''), [API_KEY]);
+  const genAI = useMemo(() => new GoogleGenerativeAI(API_KEY || ""), [API_KEY]);
 
-  const generationConfig = useMemo(() => ({
-    temperature: 0.9,
-    topK: 1,
-    topP: 1,
-    maxOutputTokens: 2048,
-  }), []);
+  const generationConfig = useMemo(
+    () => ({
+      temperature: 0.9,
+      topK: 1,
+      topP: 1,
+      maxOutputTokens: 2048,
+    }),
+    []
+  );
 
-  const safetySettings = useMemo(() => [
-    {
-      category: HarmCategory.HARM_CATEGORY_HARASSMENT,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    },
-    {
-      category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    },
-    {
-      category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    },
-    {
-      category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    },
-  ], []);
+  const safetySettings = useMemo(
+    () => [
+      {
+        category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+        threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+      },
+      {
+        category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+        threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+      },
+      {
+        category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+        threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+      },
+      {
+        category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+        threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+      },
+    ],
+    []
+  );
 
   useEffect(() => {
     const initChat = async () => {
@@ -76,13 +82,12 @@ export default function Chatbot() {
             safetySettings,
             history: messages.map((msg) => ({
               parts: [{ text: msg.text }],
-              role: msg.role === 'bot' ? 'model' : msg.role,
+              role: msg.role === "bot" ? "model" : msg.role,
             })) as Content[],
           });
         setChat(newChat);
       } catch (err) {
         console.error("Failed to initialize chat:", err);
-        // setError("Failed to initialize chat. Please try again");
       }
     };
 
@@ -107,8 +112,10 @@ export default function Chatbot() {
   const checkCustomQuestions = (input: string): string | null => {
     const lowercaseInput = input.toLowerCase();
     for (const qa of customQuestions) {
-      if (lowercaseInput.includes(qa.question.toLowerCase()) || 
-          qa.question.toLowerCase().includes(lowercaseInput)) {
+      if (
+        lowercaseInput.includes(qa.question.toLowerCase()) ||
+        qa.question.toLowerCase().includes(lowercaseInput)
+      ) {
         return qa.answer;
       }
     }
@@ -170,11 +177,15 @@ export default function Chatbot() {
   }
 
   return (
-    <div className={`flex flex-col ${isExpanded ? 'w-[25%] h-[85%]' : 'w-[25%] h-[50px]'} bg-gray-100 absolute bottom-0 right-4 shadow-xl overflow-hidden transition-all duration-300`}>
+    <div
+      className={`flex flex-col ${
+        isExpanded ? "w-[90%] h-[85%] md:w-[40%]" : "w-[90%] h-[50px] md:w-[40%]"
+      } bg-gray-100 absolute bottom-0 right-4 shadow-xl overflow-hidden transition-all duration-300 md:bottom-6 md:right-6`}
+    >
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-4 shadow-md flex justify-between items-center">
-        <h1 className="text-2xl font-bold">GiGO Chat</h1>
+        <h1 className="text-lg md:text-2xl font-bold">GiGO Chat</h1>
         <button onClick={toggleExpand} className="text-white focus:outline-none">
-          {isExpanded ? <IoIosArrowDropdown/> : <IoIosArrowDropup/>}
+          {isExpanded ? <IoIosArrowDropdown /> : <IoIosArrowDropup />}
         </button>
       </div>
       {isExpanded && (
@@ -234,22 +245,12 @@ export default function Chatbot() {
                 onClick={() => handleSendMessage()}
                 className={`p-2 rounded-md text-white font-semibold text-sm transition-colors duration-200 ease-in-out ${
                   isLoading
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-blue-500 hover:bg-blue-600 active:bg-blue-700"
+                    ? "bg-gray-500 cursor-not-allowed"
+                    : "bg-blue-600 hover:bg-blue-700"
                 }`}
                 disabled={isLoading}
               >
-                {isLoading ? (
-                  <span className="flex items-center">
-                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Sending...
-                  </span>
-                ) : (
-                  "Send"
-                )}
+                {isLoading ? "..." : "Send"}
               </button>
             </div>
           </div>
