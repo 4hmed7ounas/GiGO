@@ -36,8 +36,6 @@ const Login: React.FC = () => {
       }
       console.log(res);
       sessionStorage.setItem("user", "true");
-
-      // Check user role in Firestore
       const userDocRef = doc(db, "users", res.user.uid);
       const userDoc = await getDoc(userDocRef);
       if (userDoc.exists()) {
@@ -70,26 +68,42 @@ const Login: React.FC = () => {
         throw new Error("User credential is undefined");
       }
       const user = userCredential.user;
+      const userDocRef = doc(db, "users", user.uid);
+      const userDoc = await getDoc(userDocRef);
 
-      const nameParts = user.displayName ? user.displayName.split(" ") : [];
-      const finalName =
-        nameParts.length > 2
-          ? nameParts.slice(0, 3).join(" ")
-          : user.displayName;
-      const finalUsername = finalName
-        ? finalName.replace(/\s+/g, "") + "_" + user.uid
-        : user.uid;
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        console.log("Existing user:", userData);
+        if (userData.role === "buyer") {
+          router.push("/profile/user");
+        } else if (userData.role === "freelancer") {
+          router.push("/profile/freelancer");
+        } else {
+          throw new Error("User role is not recognized.");
+        }
+      } else {
+        const nameParts = user.displayName ? user.displayName.split(" ") : [];
+        const finalName =
+          nameParts.length > 2
+            ? nameParts.slice(0, 3).join(" ")
+            : user.displayName;
+        const finalUsername = finalName
+          ? finalName.replace(/\s+/g, "") + "_" + user.uid.slice(0, 8)
+          : user.uid;
 
-      await setDoc(doc(db, "users", user.uid), {
-        name: finalName,
-        email: user.email,
-        username: finalUsername,
-        uid: user.uid,
-        createdAt: new Date(),
-        role: "buyer",
-      });
-      console.log("Google User Credential:", userCredential);
-      router.push("/profile/user");
+        await setDoc(doc(db, "users", user.uid), {
+          name: finalName,
+          email: user.email,
+          username: finalUsername,
+          uid: user.uid,
+          createdAt: new Date(),
+          role: "buyer",
+        });
+
+        console.log("New user created in Firestore:", user);
+        router.push("/profile/user");
+      }
+
       sessionStorage.setItem("user", "true");
     } catch (error) {
       setError("Failed to sign in with Google. Please try again.");

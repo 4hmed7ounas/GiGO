@@ -10,7 +10,7 @@ import {
 } from "react-firebase-hooks/auth";
 import { auth } from "../../../firebase/config";
 import { useRouter } from "next/navigation";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 
 const db = getFirestore(auth.app);
@@ -77,25 +77,42 @@ const Signup: React.FC = () => {
       }
       const user = userCredential.user;
 
-      const nameParts = user.displayName ? user.displayName.split(" ") : [];
-      const finalName =
-        nameParts.length > 2
-          ? nameParts.slice(0, 3).join(" ")
-          : user.displayName;
-      const finalUsername = finalName
-        ? finalName.replace(/\s+/g, "") + "_" + user.uid
-        : user.uid;
+      const userDocRef = doc(db, "users", user.uid);
+      const userDoc = await getDoc(userDocRef);
 
-      await setDoc(doc(db, "users", user.uid), {
-        name: finalName,
-        email: user.email,
-        username: finalUsername,
-        uid: user.uid,
-        createdAt: new Date(),
-        role: "buyer",
-      });
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        const userRole = userData.role;
+        if (userRole === "buyer") {
+          router.push("/profile/user");
+        } else if (userRole === "freelancer") {
+          router.push("/profile/freelancer");
+        } else {
+          throw new Error("User role is not recognized.");
+        }
+      } else {
+        const nameParts = user.displayName ? user.displayName.split(" ") : [];
+        const finalName =
+          nameParts.length > 2
+            ? nameParts.slice(0, 3).join(" ")
+            : user.displayName;
+        const finalUsername = finalName
+          ? finalName.replace(/\s+/g, "") + "_" + user.uid.slice(0, 8)
+          : user.uid;
+
+        await setDoc(userDocRef, {
+          name: finalName,
+          email: user.email,
+          username: finalUsername,
+          uid: user.uid,
+          createdAt: new Date(),
+          role: "buyer", // Default role
+        });
+
+        router.push("/profile/user");
+      }
+
       console.log("Google User Credential:", userCredential);
-      router.push("/profile/user");
       sessionStorage.setItem("user", "true");
     } catch (error) {
       setError("Failed to sign up with Google. Please try again.");

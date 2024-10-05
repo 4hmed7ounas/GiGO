@@ -1,8 +1,8 @@
-import { Hero } from "./(website)/home/hero";
+import Hero from "./(website)/home/page";
 
 export default function Home() {
   return (
-    <div className="h-screen bg-primary-50">
+    <div className="bg-primary-50">
       <Hero />
     </div>
   );
