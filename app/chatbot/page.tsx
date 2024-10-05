@@ -179,18 +179,18 @@ export default function Chatbot() {
   return (
     <div
       className={`flex flex-col ${
-        isExpanded ? "w-[90%] h-[85%] md:w-[40%]" : "w-[90%] h-[50px] md:w-[40%]"
-      } bg-gray-100 absolute bottom-0 right-4 shadow-xl overflow-hidden transition-all duration-300 md:bottom-6 md:right-6`}
+        !isExpanded ? "w-[90%] h-[85%] md:w-[30%]" : "w-[90%] h-[50px] md:w-[20%]"
+      } bg-gray-100 fixed bottom-0 right-4 shadow-xl overflow-hidden transition-all duration-300 md:bottom-0 md:right-6`}
     >
-      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-4 shadow-md flex justify-between items-center">
-        <h1 className="text-lg md:text-2xl font-bold">GiGO Chat</h1>
+      <div className="bg-gradient-to-r from-primary-800 to-primary-900 text-secondary-300 p-4 shadow-md flex justify-between items-center">
+        <h1 className="text-lg md:text-2xl font-bold">GiGO. Chat</h1>
         <button onClick={toggleExpand} className="text-white focus:outline-none">
-          {isExpanded ? <IoIosArrowDropdown /> : <IoIosArrowDropup />}
+          {!isExpanded ? <IoIosArrowDropdown /> : <IoIosArrowDropup />}
         </button>
       </div>
-      {isExpanded && (
+      {!isExpanded && (
         <>
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-blue-100">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-primary-500 scrollbar-track-primary-100">
             {messages.map((msg, index) => (
               <div
                 key={index}
@@ -201,7 +201,7 @@ export default function Chatbot() {
                 <div
                   className={`max-w-[75%] p-3 rounded-lg shadow-md ${
                     msg.role === "user"
-                      ? "bg-blue-500 text-white"
+                      ? "bg-primary-500 text-white"
                       : "bg-white text-gray-800"
                   }`}
                 >
@@ -225,7 +225,7 @@ export default function Chatbot() {
                 <button
                   key={index}
                   onClick={() => handleSendMessage(q.question)}
-                  className="px-3 py-1 bg-blue-100 text-blue-800 text-xs rounded-full hover:bg-blue-200 transition-colors duration-200 ease-in-out"
+                  className="px-3 py-1 bg-primary-100 text-primary-800 text-xs rounded-full hover:bg-primary-200 transition-colors duration-200 ease-in-out"
                 >
                   {q.question}
                 </button>
@@ -238,7 +238,7 @@ export default function Chatbot() {
                 value={userInput}
                 onChange={(e) => setUserInput(e.target.value)}
                 onKeyDown={handleKeyPress}
-                className="flex-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm transition-all duration-200 ease-in-out"
+                className="flex-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm transition-all duration-200 ease-in-out"
                 disabled={isLoading}
               />
               <button
@@ -246,7 +246,7 @@ export default function Chatbot() {
                 className={`p-2 rounded-md text-white font-semibold text-sm transition-colors duration-200 ease-in-out ${
                   isLoading
                     ? "bg-gray-500 cursor-not-allowed"
-                    : "bg-blue-600 hover:bg-blue-700"
+                    : "bg-primary-600 hover:bg-primary-700"
                 }`}
                 disabled={isLoading}
               >
