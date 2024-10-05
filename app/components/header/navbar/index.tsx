@@ -29,7 +29,7 @@ export default function Navbar() {
     setSearch("");
   };
   return (
-    <Disclosure as="nav" className="bg-primary-900 fixed top-0 left-0 right-0">
+    <Disclosure as="nav" className="bg-primary-900 fixed top-0 left-0 right-0 z-10">
       <div className="mx-auto max-w-[90%] px-2 lg:px-6 xl:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 right-0 flex items-center lg:hidden">
@@ -60,7 +60,7 @@ export default function Navbar() {
                 <Button
                   text="Search"
                   onClick={handleSearch}
-                  className="bg-secondary-600 py-2 px-4 w-[20%] rounded-r-lg hover:bg-secondary-700 transition-colors duration-300 ease-in-out"
+                  className="bg-secondary-600 text-white py-2 px-4 w-[20%] rounded-r-lg hover:bg-secondary-700 transition-colors duration-300 ease-in-out"
                 />
               </div>
             </div>
@@ -100,7 +100,7 @@ export default function Navbar() {
             <Button
               text="Search"
               onClick={handleSearch}
-              className="bg-secondary-700 py-2 px-2 w-[20%] rounded-r-lg hover:bg-secondary-600 transition-colors duration-300 ease-in-out"
+              className="bg-secondary-700 text-white py-2 px-2 w-[20%] rounded-r-lg hover:bg-secondary-600 transition-colors duration-300 ease-in-out"
             />
           </div>
           {navigation.map((item) => (
