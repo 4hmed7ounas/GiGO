@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 interface BigCardProps {
@@ -23,7 +24,7 @@ const BigCard: React.FC<BigCardProps> = ({ title, image, link, backgroundColor }
           <h3 className="text-lg font-semibold text-center text-black mb-2">{title}</h3> {/* Title on top of card with bottom margin */}
         </div>
         <div className="flex justify-center flex-grow"> {/* Flex container for the image, allowing it to fill the remaining space */}
-          <img 
+          <Image 
             src={image} 
             alt={title} 
             className="object-cover rounded-lg" // Changed to rounded-lg for 50% roundness

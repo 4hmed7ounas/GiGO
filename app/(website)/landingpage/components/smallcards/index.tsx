@@ -9,13 +9,9 @@ interface SmallCardProps {
 }
 
 const SmallCard: React.FC<SmallCardProps> = (props) => {
-  const { text, onClick, className = "", icon, link } = props;
+  const { text, onClick,  icon, link } = props;
   
-  const buttonClasses = `
-    cursor-pointer
-    transition duration-300 ease-in-out
-    ${className}
-  `;
+
 
   return (
     <div>

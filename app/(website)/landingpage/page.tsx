@@ -37,9 +37,9 @@ const bigCardData = [
 
 // Function to generate random light colors
 const getRandomLightColor = () => {
-  const r = Math.floor(Math.random() * 256);
-  const g = Math.floor(Math.random() * 256);
-  const b = Math.floor(Math.random() * 256);
+  const r = Math.floor(Math.random() * 156) + 100; // Ensure lighter colors
+  const g = Math.floor(Math.random() * 156) + 100;
+  const b = Math.floor(Math.random() * 156) + 100;
   return `rgba(${r}, ${g}, ${b}, 0.8)`; // Use rgba for transparency
 };
 
@@ -57,19 +57,20 @@ const LandingPage: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
+      {/* Header Section */}
       <div
-        className="h-screen flex items-center justify-center mt-36" // Added extra top margin
+        className="flex-grow flex items-center justify-center mt-36"
         style={{
           backgroundImage: `url(${IMAGES.landingImg.src})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           aspectRatio: '16 / 9',
           marginLeft: '60px',
-          borderRadius: '15px', // Rounded corners
-          height: '60vh', // Decreased height
-          width: '90vw', // Decreased width
-        }} // Use IMAGES for background with 16:9 ratio
+          borderRadius: '15px',
+          height: '60vh',
+          width: '90vw',
+        }}
       >
         <Navbar />
         <div className="flex flex-col items-center justify-center h-full text-white">
@@ -92,18 +93,21 @@ const LandingPage: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-center mt-8"> {/* Added container for small cards */}
+
+      {/* Small Cards Section */}
+      <div className="flex flex-col items-center mt-8">
         <h1 className="text-4xl font-bold mb-4">Our Services</h1>
-        <div className="flex flex-wrap justify-center gap-4"> {/* Flex container for small cards */}
+        <div className="flex flex-wrap justify-center gap-4">
           {smallCardData.map((card, index) => (
             <SmallCard key={index} text={card.title} icon={card.icon} link={card.link} />
           ))}
         </div>
       </div>
 
-      <div className="flex flex-col items-center mt-12"> {/* Added container for big cards */}
+      {/* Big Cards Section */}
+      <div className="flex flex-col items-center mt-12">
         <h1 className="text-4xl font-bold mb-4">Explore Our Services</h1>
-        <div className="flex flex-wrap justify-center gap-4"> {/* Flex container for big cards */}
+        <div className="flex flex-wrap justify-center gap-4">
           {bigCardData.map((card, index) => (
             <BigCard 
               key={index} 
@@ -114,6 +118,16 @@ const LandingPage: React.FC = () => {
             />
           ))}
         </div>
+      </div>
+
+      {/* New Customizable Rectangle Section */}
+      <div className="bg-red-950 w-[70%] h-[200px] flex flex-col justify-center items-center mt-10 ml-[190px] rounded-lg">
+        <h2 className="text-3xl font-bold text-center text-white">Freelance services at your fingertips!</h2>
+        <Button
+          text="Join GiGO"
+          onClick={() => { /* Add your button action here */ }}
+          className="bg-green-600 text-white py-2 px-6 mt-4 rounded-lg hover:bg-green-700 transition-colors duration-300 ease-in-out"
+        />
       </div>
     </div>
   );
