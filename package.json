@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.20.0",
-    "@headlessui/react": "^2.1.8",
+    "@headlessui/react": "^2.1.10",
     "firebase": "^10.13.2",
     "mongodb": "^6.9.0",
     "mongoose": "^8.7.0",
