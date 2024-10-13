@@ -4,12 +4,13 @@ import Button from "@/app/components/button";
 import Navbar from "@/app/components/header/navbar";
 import InputField from "@/app/components/input";
 import SmallCard from "./components/smallcards"; // Ensure the import matches the component name
+import BigCard from "./components/bigcards"; // Ensure you import BigCard
 import { useState } from "react";
 import { IMAGES } from "@/share/assets"; // Importing images from assets
-import { FaReact } from "react-icons/fa";
 import { FaCode, FaPencilRuler, FaBullhorn, FaPenNib, FaFilm, FaRobot, FaMusic, FaBusinessTime, FaHandshake } from "react-icons/fa"; // Import all necessary icons
 
-const cardData = [
+// Data for small cards
+const smallCardData = [
   { icon: <FaCode />, title: "Programming & Tech", link: "/services/programming" },
   { icon: <FaPencilRuler />, title: "Graphics & Design", link: "/services/graphics" },
   { icon: <FaBullhorn />, title: "Digital Marketing", link: "/services/marketing" },
@@ -20,6 +21,27 @@ const cardData = [
   { icon: <FaBusinessTime />, title: "Business", link: "/services/business" },
   { icon: <FaHandshake />, title: "Consulting", link: "/services/consulting" },
 ];
+
+// Data for big cards
+const bigCardData = [
+  { title: "Programming & Tech", image: IMAGES.bigcard1img.src, link: "/services/programming" },
+  { title: "Graphics & Design", image: IMAGES.bigcard2img.src, link: "/services/graphics" },
+  { title: "Digital Marketing", image: IMAGES.bigcard3img.src, link: "/services/marketing" },
+  { title: "Writing & Translation", image: IMAGES.bigcard1img.src, link: "/services/writing" },
+  { title: "Video & Animation", image: IMAGES.bigcard2img.src, link: "/services/video" },
+  { title: "AI Services", image: IMAGES.bigcard3img.src, link: "/services/ai" },
+  { title: "Music & Audio", image: IMAGES.bigcard1img.src, link: "/services/music" },
+  { title: "Business", image: IMAGES.bigcard2img.src, link: "/services/business" },
+  { title: "Consulting", image: IMAGES.bigcard3img.src, link: "/services/consulting" },
+];
+
+// Function to generate random light colors
+const getRandomLightColor = () => {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  return `rgba(${r}, ${g}, ${b}, 0.8)`; // Use rgba for transparency
+};
 
 const LandingPage: React.FC = () => {
   const [search, setSearch] = useState("");
@@ -72,9 +94,24 @@ const LandingPage: React.FC = () => {
       </div>
       <div className="flex flex-col items-center mt-8"> {/* Added container for small cards */}
         <h1 className="text-4xl font-bold mb-4">Our Services</h1>
-        <div className="flex flex-wrap justify-center gap-4"> {/* Flex container for cards */}
-          {cardData.map((card, index) => (
+        <div className="flex flex-wrap justify-center gap-4"> {/* Flex container for small cards */}
+          {smallCardData.map((card, index) => (
             <SmallCard key={index} text={card.title} icon={card.icon} link={card.link} />
+          ))}
+        </div>
+      </div>
+
+      <div className="flex flex-col items-center mt-12"> {/* Added container for big cards */}
+        <h1 className="text-4xl font-bold mb-4">Explore Our Services</h1>
+        <div className="flex flex-wrap justify-center gap-4"> {/* Flex container for big cards */}
+          {bigCardData.map((card, index) => (
+            <BigCard 
+              key={index} 
+              title={card.title} 
+              image={card.image} 
+              link={card.link} 
+              backgroundColor={getRandomLightColor()} // Pass random light color as prop
+            />
           ))}
         </div>
       </div>

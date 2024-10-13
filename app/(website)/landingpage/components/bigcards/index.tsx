@@ -3,61 +3,36 @@ import React from "react";
 interface BigCardProps {
   title: string;
   image: string;
-  bgColor: string;
+  link: string;
+  backgroundColor: string; // Added backgroundColor prop
 }
 
-const BigCard: React.FC<BigCardProps> = ({ title, image, bgColor }) => {
+const BigCard: React.FC<BigCardProps> = ({ title, image, link, backgroundColor }) => {
   return (
-    <div className={`w-60 h-80 rounded-xl shadow-lg flex flex-col justify-between p-4 ${bgColor} text-white`}>
-      <div className="text-xl font-bold">{title}</div>
-      <div className="h-40 flex items-center justify-center">
-        <img src={image} alt={title} className="object-contain w-full h-full rounded-lg" />
+    <a 
+      href={link} 
+      className="relative flex flex-col justify-between rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105"
+      style={{ width: '220px', height: '300px' }} // Fixed width and height for the card
+    >
+      <div 
+        className="absolute inset-0 rounded-lg"
+        style={{ backgroundColor, zIndex: 0 }} // Background color is now behind the entire card
+      />
+      <div className="flex flex-col justify-between h-full relative z-10"> {/* Ensure title and image are above the background */}
+        <div className="p-4">
+          <h3 className="text-lg font-semibold text-center text-black mb-2">{title}</h3> {/* Title on top of card with bottom margin */}
+        </div>
+        <div className="flex justify-center flex-grow"> {/* Flex container for the image, allowing it to fill the remaining space */}
+          <img 
+            src={image} 
+            alt={title} 
+            className="object-cover rounded-lg" // Changed to rounded-lg for 50% roundness
+            style={{ width: '100%', height: '100%' }} // Image takes up the full height of the card
+          />
+        </div>
       </div>
-    </div>
+    </a>
   );
 };
 
-const BigCardsGrid = () => {
-  const services = [
-    {
-      title: "Website Development",
-      image: "https://via.placeholder.com/150", // Replace with your image
-      bgColor: "bg-green-600",
-    },
-    {
-      title: "Logo Design",
-      image: "https://via.placeholder.com/150", // Replace with your image
-      bgColor: "bg-orange-500",
-    },
-    {
-      title: "SEO",
-      image: "https://via.placeholder.com/150", // Replace with your image
-      bgColor: "bg-green-800",
-    },
-    {
-      title: "Architecture & Interior Design",
-      image: "https://via.placeholder.com/150", // Replace with your image
-      bgColor: "bg-rose-700",
-    },
-    // Add more cards here
-  ];
-
-  return (
-    <div className="flex flex-wrap gap-4 justify-start">
-      {services.map((service, index) => (
-        <BigCard key={index} title={service.title} image={service.image} bgColor={service.bgColor} />
-      ))}
-    </div>
-  );
-};
-
-const PopularBigCards = () => {
-  return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <h1 className="text-4xl font-bold mb-8 text-gray-800">Popular Services</h1>
-      <BigCardsGrid />
-    </div>
-  );
-};
-
-export default PopularBigCards;
+export default BigCard;
