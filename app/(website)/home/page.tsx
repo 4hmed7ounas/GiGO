@@ -1,95 +1,20 @@
 "use client";
-import { useState } from "react";
 import Button from "@/app/components/button";
 import Navbar from "@/app/components/header/navbar";
 import ServiceCard from "@/app/components/servicecard";
-import { IMAGES } from "@/share/assets";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import { CiMenuBurger } from "react-icons/ci";
-import Link from "next/link"; // Import Link from Next.js if using Next.js
 
-const services = [
-  {
-    image: IMAGES.gigo.src,
-    profileImage: IMAGES.gigo.src,
-    name: "M. Huzaifa",
-    title: "assignments on dld dsd riscv arm verilog vhdl simulation",
-    rating: 5.0,
-    reviews: 2,
-    price: "PKR 2,917",
-  },
-  {
-    image: IMAGES.authImage.src,
-    profileImage: IMAGES.gigo.src,
-    name: "A. Khan",
-    title: "expert in data analysis and visualization",
-    rating: 4.8,
-    reviews: 5,
-    price: "PKR 3,500",
-  },
-  {
-    image: IMAGES.gigo.src,
-    profileImage: IMAGES.gigo.src,
-    name: "S. Ali",
-    title: "professional graphic designer for your needs",
-    rating: 4.7,
-    reviews: 3,
-    price: "PKR 2,200",
-  },
-  {
-    image: IMAGES.gigo.src,
-    profileImage: IMAGES.gigo.src,
-    name: "M. Huzaifa",
-    title: "assignments on dld dsd riscv arm verilog vhdl simulation",
-    rating: 5.0,
-    reviews: 2,
-    price: "PKR 2,917",
-  },
-  {
-    image: IMAGES.authImage.src,
-    profileImage: IMAGES.gigo.src,
-    name: "A. Khan",
-    title: "expert in data analysis and visualization",
-    rating: 4.8,
-    reviews: 5,
-    price: "PKR 3,500",
-  },
-  {
-    image: IMAGES.gigo.src,
-    profileImage: IMAGES.gigo.src,
-    name: "S. Ali",
-    title: "professional graphic designer for your needs",
-    rating: 4.7,
-    reviews: 3,
-    price: "PKR 2,200",
-  },
-  {
-    image: IMAGES.gigo.src,
-    profileImage: IMAGES.gigo.src,
-    name: "M. Huzaifa",
-    title: "assignments on dld dsd riscv arm verilog vhdl simulation",
-    rating: 5.0,
-    reviews: 2,
-    price: "PKR 2,917",
-  },
-  {
-    image: IMAGES.authImage.src,
-    profileImage: IMAGES.gigo.src,
-    name: "A. Khan",
-    title: "expert in data analysis and visualization",
-    rating: 4.8,
-    reviews: 5,
-    price: "PKR 3,500",
-  },
-  {
-    image: IMAGES.gigo.src,
-    profileImage: IMAGES.gigo.src,
-    name: "S. Ali",
-    title: "professional graphic designer for your needs",
-    rating: 4.7,
-    reviews: 3,
-    price: "PKR 2,200",
-  },
-];
+interface Service {
+  image: string;
+  profileImage: string;
+  name: string;
+  title: string;
+  rating: number;
+  reviews: number;
+  price: string;
+}
 
 interface PopupProps {
   onClose: () => void;
@@ -112,6 +37,24 @@ const Popup: React.FC<PopupProps> = ({ onClose }) => {
 
 export default function Hero() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [services, setServices] = useState<Service[]>([]);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await fetch('/api/services');
+        if (!response.ok) {
+          throw new Error('Failed to fetch services');
+        }
+        const data: Service[] = await response.json();
+        setServices(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    fetchServices();
+  }, []);
 
   const handleFilter = () => {
     setIsPopupOpen(true);
@@ -140,8 +83,6 @@ export default function Hero() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 max-w-[90%] mx-auto">
             {services.map((service, index) => (
               <Link href={`/services/${index}`} key={index}>
-                {" "}
-                {/* Use dynamic routing for service details */}
                 <ServiceCard
                   image={service.image}
                   profileImage={service.profileImage}
