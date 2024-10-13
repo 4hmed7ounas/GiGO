@@ -6,8 +6,8 @@ interface ServiceCardProps {
   profileImage: string;
   name: string;
   title: string;
-  rating: number;
-  reviews: number;
+  rating?: number; // Optional rating
+  reviews?: number; // Optional reviews count
   price: string;
 }
 
@@ -21,8 +21,9 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   price,
 }) => {
   return (
-    <div className="w-70 bg-white rounded-lg shadow-md overflow-hidden"> {/* Set max width as per requirement */}
-      <div className="relative w-full h-0 pb-[56.25%]"> {/* 16:9 Aspect Ratio */}
+    <div className="w-70 bg-white rounded-lg shadow-md overflow-hidden">
+      {/* Image Section */}
+      <div className="relative w-full h-0 pb-[56.25%]">
         <Image
           src={image}
           alt="Service"
@@ -31,7 +32,10 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           className="border-2 border-gray-200"
         />
       </div>
+
+      {/* Content Section */}
       <div className="p-4">
+        {/* Profile Section */}
         <div className="flex items-center">
           <Image
             src={profileImage}
@@ -46,14 +50,19 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           </div>
         </div>
 
+        {/* Rating and Price Section */}
         <div className="mt-3 flex items-center justify-between">
-          <div className="flex items-center text-yellow-400">
-            <FaStar />
-            <span className="ml-1 text-sm font-semibold text-black">
-              {rating.toFixed(1)}
-            </span>
-            <span className="ml-1 text-gray-500">({reviews})</span>
-          </div>
+          {rating !== undefined && rating !== null && (
+            <div className="flex items-center text-yellow-400">
+              <FaStar />
+              <span className="ml-1 text-sm font-semibold text-black">
+                {rating.toFixed(1)}
+              </span>
+              {reviews !== undefined && (
+                <span className="ml-1 text-gray-500">({reviews})</span>
+              )}
+            </div>
+          )}
           <div className="text-sm font-semibold text-black">From {price}</div>
         </div>
       </div>
