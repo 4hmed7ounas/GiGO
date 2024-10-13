@@ -39,5 +39,3 @@ export const IMAGES = {
     priority: true, // add this line to optimize LCP
   },
 };
-// import {IMAGES} from "@/share/assets"
-// IMAGES.logo
