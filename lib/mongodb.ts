@@ -1,15 +1,10 @@
 import { MongoClient } from 'mongodb';
 
-const uri: string = process.env.MONGODB_URI as string;
+const uri: string = "mongodb+srv://hadeed:hadeeddata@cluster0.vmrd5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"; // Directly using the MongoDB URI
 const options: object = {};
 
 let client: MongoClient;
 let clientPromise: Promise<MongoClient>;
-
-// Check if the MongoDB URI is set in the environment
-if (!process.env.MONGODB_URI) {
-  throw new Error('Please add your MongoDB URI to .env.local');
-}
 
 // Define a global interface for the MongoClient promise
 interface Global {
