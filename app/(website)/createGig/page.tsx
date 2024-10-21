@@ -90,9 +90,7 @@ export default function MakeServices() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     setError("");
-    // Collect form data, including userId and image file names
     const formData = {
       title,
       keyWords,
