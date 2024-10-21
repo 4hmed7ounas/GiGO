@@ -29,7 +29,7 @@ export async function POST(request: Request) {
   try {
     const db = await connectMongo(); // Ensure connection before insertion
     const data = await request.json();
-    const { title, keyWords, description, tiers, images, userId } = data; // Include userId in the request data
+    const { title, keyWords, description, tiers, images } = data; // Include userId in the request data
 
     // Create a new service with the userId
     const newService = new Service({
@@ -38,9 +38,7 @@ export async function POST(request: Request) {
       description,
       tiers,
       images,
-      userId, 
     });
-    console.log(userId)
 
     const result = await db.collection('services').insertOne(newService);
     return NextResponse.json({ message: 'Service created successfully', result }, { status: 201 });

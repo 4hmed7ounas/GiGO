@@ -12,7 +12,6 @@ const serviceSchema = new mongoose.Schema({
     },
   ],
   images: { type: [String], required: true },
-  userId: { type: String, required: true },
 });
 
 // Check if the model already exists before creating it
