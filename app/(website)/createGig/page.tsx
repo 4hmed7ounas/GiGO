@@ -4,9 +4,9 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function MakeServices() {
+  
   const [title, setTitle] = useState("");
   const [keyWords, setKeyWords] = useState<string[]>([]);
-  const [category, setCategory] = useState("");
   const [tiers, setTiers] = useState([
     { price: "", deliveryTime: "", details: "" },
   ]);
@@ -90,20 +90,18 @@ export default function MakeServices() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
-    
+
     setError("");
-  
-    // Collect form data, saving image file names for MongoDB
+    // Collect form data, including userId and image file names
     const formData = {
       title,
       keyWords,
-      category,
       tiers,
       description,
-      images: images.map(image => image.name), // Storing file names
+      images: images.map((image) => image.name)
     };
-  
+    
+console.log(formData)
     try {
       const response = await fetch("/api/services", {
         method: "POST",
@@ -111,14 +109,14 @@ export default function MakeServices() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
+        
       });
-  
+
       if (response.ok) {
         const result = await response.json();
         alert(result.message);
         // Clear form on success
         setTitle("");
-        setCategory("");
         setKeyWords([]);
         setKeyWordInput("");
         setTiers([{ price: "", deliveryTime: "", details: "" }]);
@@ -132,7 +130,6 @@ export default function MakeServices() {
       alert("An error occurred while creating the service.");
     }
   };
-  
   return (
     <div className="w-full flex justify-center py-8">
       <div className="w-[80%] lg:w-[40%] bg-white p-6 rounded-lg shadow-lg">

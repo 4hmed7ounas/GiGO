@@ -1,17 +1,16 @@
 "use client";
-import React, { useState } from "react";
-import InputField from "@/app/components/input";
 import Button from "@/app/components/button";
-import { FaGoogle } from "react-icons/fa";
+import InputField from "@/app/components/input";
+import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 import {
   useSignInWithEmailAndPassword,
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
+import { FaGoogle } from "react-icons/fa";
 import { auth } from "../../../firebase/config";
-import { useRouter } from "next/navigation";
-import { doc, setDoc, getDoc } from "firebase/firestore";
-import { getFirestore } from "firebase/firestore";
 
 const db = getFirestore(auth.app);
 
@@ -159,6 +158,7 @@ const Login: React.FC = () => {
             </p>
           </div>
         </form>
+
       </div>
     </div>
   );
