@@ -1,9 +1,12 @@
 "use client";
 import InputField from "@/app/components/input";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation"; // Import useSearchParams
 import { useState } from "react";
 
 export default function MakeServices() {
+  const searchParams = useSearchParams();
+  const userId = searchParams.get('userId'); 
   const [title, setTitle] = useState("");
   const [keyWords, setKeyWords] = useState<string[]>([]);
   const [tiers, setTiers] = useState([
@@ -89,18 +92,19 @@ export default function MakeServices() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     setError("");
-    
-    // Collect form data, saving image file names for MongoDB
+    // Collect form data, including userId and image file names
     const formData = {
       title,
       keyWords,
       tiers,
       description,
-      images: images.map(image => image.name), // Storing file names
+      images: images.map((image) => image.name),
+      userId, // Ensure this is being set correctly
     };
-  
+    
+console.log(formData)
     try {
       const response = await fetch("/api/services", {
         method: "POST",
@@ -108,8 +112,9 @@ export default function MakeServices() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
+        
       });
-  
+
       if (response.ok) {
         const result = await response.json();
         alert(result.message);
@@ -131,6 +136,7 @@ export default function MakeServices() {
   return (
     <div className="w-full flex justify-center py-8">
       <div className="w-[80%] lg:w-[40%] bg-white p-6 rounded-lg shadow-lg">
+        <span className="bg-black text-white">{userId}</span>
       <form className="flex flex-col space-y-4" onSubmit={handleSubmit}>
   {/* Title */}
   <div>

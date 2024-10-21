@@ -1,11 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { auth } from "../../../firebase/config";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { getFirestore } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
+import { useRouter } from "next/navigation"; // Import useRouter for navigation
+import React, { useEffect, useState } from "react";
 import { FaPencil } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
+import { auth } from "../../../firebase/config";
 
 const db = getFirestore(auth.app);
 
@@ -19,6 +19,7 @@ interface UserData {
 
 const FreelancerProfile: React.FC = () => {
   const [userData, setUserData] = useState<UserData | null>(null);
+  const [userId, setUserId] = useState<string | null>(null); // Add state for user ID
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState<UserData>({
@@ -27,11 +28,13 @@ const FreelancerProfile: React.FC = () => {
     username: "",
     role: "",
   });
+  const router = useRouter(); // Instantiate router
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const userId = user.uid;
+        setUserId(userId); // Set the user ID in state
         const userDocRef = doc(db, "users", userId);
         const userDoc = await getDoc(userDocRef);
         if (userDoc.exists()) {
@@ -58,19 +61,24 @@ const FreelancerProfile: React.FC = () => {
   };
 
   const handleUpdate = async () => {
-    const userId = auth.currentUser?.uid;
     if (userId) {
       const userDocRef = doc(db, "users", userId);
-      await updateDoc(userDocRef, { ...formData, phone: formData.phone || "" }); // Ensure phone is updated
-      setUserData({ ...userData, ...formData }); // Update userData with new formData
+      await updateDoc(userDocRef, { ...formData, phone: formData.phone || "" });
+      setUserData({ ...userData, ...formData });
       setIsEditing(false);
     }
   };
 
   const handleCancel = () => {
     setIsEditing(false);
-    setFormData(userData as UserData); // Reset form data to original user data
+    setFormData(userData as UserData);
   };
+
+  const handleCreateGig = () => {
+    if (userId) {
+        router.push(`/createGig?userId=${userId}`); // Pass userId as a query parameter
+    }
+};
 
   if (loading) {
     return <div className="text-center text-lg">Loading...</div>;
@@ -152,6 +160,9 @@ const FreelancerProfile: React.FC = () => {
           ) : (
             <div>
               <p className="text-lg text-gray-700">
+                <span className="font-semibold">ID:</span> {userId}
+              </p>
+              <p className="text-lg text-gray-700">
                 <span className="font-semibold">Name:</span> {userData.name}
               </p>
               <p className="text-lg text-gray-700">
@@ -169,6 +180,13 @@ const FreelancerProfile: React.FC = () => {
                   <span className="font-semibold">Phone:</span> {userData.phone}
                 </p>
               )}
+              {/* Add a "Create a Gig" button here */}
+              <button
+                onClick={handleCreateGig}
+                className="mt-4 bg-primary-600 text-white p-3 rounded-lg hover:bg-primary-700 transition duration-200"
+              >
+                Create a Gig
+              </button>
             </div>
           )}
         </div>
