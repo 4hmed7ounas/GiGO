@@ -1,26 +1,20 @@
-// models/service.ts
-import { Document, Schema, model } from 'mongoose';
+import mongoose from 'mongoose';
 
-interface IService extends Document {
-  image: string;
-  profileImage: string;
-  name: string;
-  title: string;
-  rating: number;
-  reviews: number;
-  price: string;
-}
-
-const serviceSchema = new Schema<IService>({
-  image: { type: String, required: true },
-  profileImage: { type: String, required: true },
-  name: { type: String, required: true },
+const serviceSchema = new mongoose.Schema({
   title: { type: String, required: true },
-  rating: { type: Number, required: true },
-  reviews: { type: Number, required: true },
-  price: { type: String, required: true },
+  keyWords: { type: [String], required: true },
+  description: { type: String, required: true },
+  tiers: [
+    {
+      price: { type: String, required: true },
+      deliveryTime: { type: String, required: true },
+      details: { type: String, required: true },
+    },
+  ],
+  images: { type: [String], required: true },
 });
 
-const Service = model<IService>('Service', serviceSchema);
+// Check if the model already exists before creating it
+const Service = mongoose.models.Service || mongoose.model('Service', serviceSchema);
 
 export default Service;
