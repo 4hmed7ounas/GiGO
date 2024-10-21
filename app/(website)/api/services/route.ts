@@ -30,7 +30,6 @@ export async function POST(request: Request) {
     const db = await connectMongo(); // Ensure connection before insertion
     const data = await request.json();
     const { title, keyWords, description, tiers, images } = data;
-
     const newService = new Service({
       title,
       keyWords,

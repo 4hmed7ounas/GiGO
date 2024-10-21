@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function MakeServices() {
+  
   const [title, setTitle] = useState("");
   const [keyWords, setKeyWords] = useState<string[]>([]);
   const [tiers, setTiers] = useState([
@@ -89,18 +90,16 @@ export default function MakeServices() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
     setError("");
-    
-    // Collect form data, saving image file names for MongoDB
     const formData = {
       title,
       keyWords,
       tiers,
       description,
-      images: images.map(image => image.name), // Storing file names
+      images: images.map((image) => image.name)
     };
-  
+    
+console.log(formData)
     try {
       const response = await fetch("/api/services", {
         method: "POST",
@@ -108,8 +107,9 @@ export default function MakeServices() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
+        
       });
-  
+
       if (response.ok) {
         const result = await response.json();
         alert(result.message);
