@@ -1,10 +1,11 @@
 "use client";
-import Button from "@/app/components/button";
-import Navbar from "@/app/components/header/navbar";
-import ServiceCard from "@/app/components/servicecard";
+import Navbar from "../../components/header/navbar";
+import ServiceCard from "../../components/servicecard";
 import Link from "next/link";
+import React from "react";
 import { useEffect, useState } from "react";
 import { CiMenuBurger } from "react-icons/ci";
+import Button from "../../components/button";
 
 interface Service {
   image: string;

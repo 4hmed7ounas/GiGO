@@ -3,8 +3,8 @@ import { MongoClient } from 'mongodb';
 const uri: string = "mongodb+srv://hadeed:hadeeddata@cluster0.vmrd5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"; // Directly using the MongoDB URI
 
 const options = {
-  serverSelectionTimeoutMS: 5000, // Timeout for server selection
-  socketTimeoutMS: 45000, // Socket timeout
+  serverSelectionTimeoutMS: 5000,
+  socketTimeoutMS: 45000,
 };
 
 let client: MongoClient;

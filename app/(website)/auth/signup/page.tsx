@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import InputField from "@/app/components/input";
-import Button from "@/app/components/button";
+import InputField from "../../../components/input";
+import Button from "../../../components/button";
 import { FaGoogle } from "react-icons/fa";
 import Link from "next/link";
 import {

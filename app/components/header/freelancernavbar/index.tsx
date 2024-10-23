@@ -8,11 +8,12 @@ import {
   MenuItem,
   MenuItems,
 } from "@headlessui/react";
+import React from "react";
 import Link from "next/link";
 import { CiMenuBurger } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
 import { FaBell, FaEnvelope } from "react-icons/fa";
-import { IMAGES } from "@/share/assets";
+import { IMAGES } from "../../../../share/assets";
 import Image from "next/image";
 
 const navigation = [

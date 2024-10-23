@@ -3,7 +3,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import Button from "../../components/button";
 import Image from "next/image";
-import { IMAGES } from "@/share/assets";
+import { IMAGES } from "../../../share/assets";
 import { FaGear } from "react-icons/fa6";
 import Link from "next/link";
 import { doc, setDoc, getDoc } from "firebase/firestore";

@@ -35,8 +35,8 @@ const BigCard: React.FC<BigCardProps> = ({
             src={image}
             alt={title}
             className="object-cover rounded-lg"
-            width={500}
-            height={500}
+            width={50}
+            height={50}
             style={{ width: "100%", height: "100%" }}
           />
         </div>

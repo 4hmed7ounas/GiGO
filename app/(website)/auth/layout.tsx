@@ -1,4 +1,4 @@
-import { IMAGES } from '@/share/assets';
+import { IMAGES } from '../../../share/assets';
 import Image from 'next/image';
 import React from 'react';
 
