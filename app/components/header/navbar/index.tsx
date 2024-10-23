@@ -4,13 +4,14 @@ import {
   DisclosureButton,
   DisclosurePanel,
 } from "@headlessui/react";
+import React from "react";
 import Link from "next/link";
 import { CiMenuBurger } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
 import InputField from "../../input";
 import { useState } from "react";
 import Button from "../../button";
-import { IMAGES } from "@/share/assets";
+import { IMAGES } from "../../../../share/assets";
 import Image from "next/image";
 
 const navigation = [

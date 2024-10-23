@@ -1,4 +1,3 @@
-import { auth } from "@/app/firebase/config";
 import { ASSETS_BASE_URL } from "./config";
 
 export const IMAGES = {
@@ -16,8 +15,8 @@ export const IMAGES = {
   },
   landingImg: {
     src: `${ASSETS_BASE_URL}/landingimg.jpg`,
-    width: 800, // specify the width
-    height: 600, // specify the height
+    width: 80, // specify the width
+    height: 60, // specify the height
     priority: true, // add this line to optimize LCP
   },
   bigcard1img: {
