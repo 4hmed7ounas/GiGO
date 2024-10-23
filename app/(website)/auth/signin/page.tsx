@@ -1,6 +1,6 @@
 "use client";
-import Button from "@/app/components/button";
-import InputField from "@/app/components/input";
+import Button from "../../../components/button";
+import InputField from "../../../components/input";
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

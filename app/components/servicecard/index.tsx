@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
+import React from "react";
 
 interface ServiceCardProps {
   image: string;
@@ -50,8 +51,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           </div>
         </div>
 
-        {/* Rating and Price Section */}
-        <div className="mt-3 flex items-center justify-between">
+        <div className="mt-3 flex w-full items-center">
           {rating !== undefined && rating !== null && (
             <div className="flex items-center text-yellow-400">
               <FaStar />
@@ -63,7 +63,9 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
               )}
             </div>
           )}
-          <div className="text-sm font-semibold text-black">From {price}</div>
+          <div className="ml-auto text-sm font-semibold text-black">
+            From {price}
+          </div>
         </div>
       </div>
     </div>

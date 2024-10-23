@@ -1,10 +1,9 @@
-import clientPromise from '@/lib/mongodb';
-import Service from '@/models/service'; // Mongoose model
+import Service from '../../../../models/service'; // Mongoose model
 import { NextResponse } from 'next/server';
+import clientPromise from '../../../../lib/mongodb';
 
 const connectMongo = async () => {
   try {
-    // Wait for the MongoClient connection to be resolved
     const client = await clientPromise;
     const db = client.db('GIGO');
     return db;

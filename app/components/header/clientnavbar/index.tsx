@@ -12,10 +12,10 @@ import Link from "next/link";
 import { CiMenuBurger } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
 import InputField from "../../input";
-import { useState } from "react";
+import React, { useState } from "react";
 import Button from "../../button";
 import { FaBell, FaEnvelope } from "react-icons/fa";
-import { IMAGES } from "@/share/assets";
+import { IMAGES } from "../../../../share/assets";
 import Image from "next/image";
 
 const navigation = [{ name: "Orders", href: "/", current: false }];

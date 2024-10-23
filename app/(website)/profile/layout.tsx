@@ -1,6 +1,6 @@
 "use client";
-import FreelancerNavbar from "@/app/components/header/freelancernavbar";
-import ClientNavbar from "@/app/components/header/clientnavbar";
+import FreelancerNavbar from "../../components/header/freelancernavbar";
+import ClientNavbar from "../../components/header/clientnavbar";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/config";

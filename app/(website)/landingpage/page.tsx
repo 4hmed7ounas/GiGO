@@ -1,12 +1,12 @@
 "use client";
-
-import Button from "@/app/components/button";
-import Navbar from "@/app/components/header/navbar";
-import InputField from "@/app/components/input";
+import React from "react";
+import Button from "../../../app/components/button";
+import Navbar from "../../../app/components/header/navbar";
+import InputField from "../../../app/components/input";
 import SmallCard from "./components/smallcards";
 import BigCard from "./components/bigcards";
 import { useState } from "react";
-import { IMAGES } from "@/share/assets";
+import { IMAGES } from "../../../share/assets";
 import {
   FaCode,
   FaPencilRuler,
