@@ -1,20 +1,21 @@
 "use client";
-import Navbar from "../../components/header/navbar";
-import ServiceCard from "../../components/servicecard";
 import Link from "next/link";
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CiMenuBurger } from "react-icons/ci";
 import Button from "../../components/button";
+import Navbar from "../../components/header/navbar";
+import ServiceCard from "../../components/servicecard";
 
 interface Service {
-  image: string;
+  imageURL: string;
   profileImage: string;
-  name: string;
+  // name: string;
   title: string;
-  rating: number;
-  reviews: number;
-  price: string;
+  tier: {
+    price: number;  // Assuming price is a number
+    deliveryTime: number;
+    details: string;
+  };
 }
 
 interface PopupProps {
@@ -80,18 +81,16 @@ export default function Hero() {
             onClick={handleFilter}
           />
         </div>
-        <div className="flex justify-center items-center py-3">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 max-w-[90%] mx-auto">
+        <div className=" px-5 sm:px-10 md:px-20 py-7">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mx-auto">
             {services.map((service, index) => (
               <Link href={`/services/${index}`} key={index}>
                 <ServiceCard
-                  image={service.image}
-                  profileImage={service.profileImage}
-                  name={service.name}
+                  image={service.imageURL}
+                  profileImage={service.imageURL}
+                  // name={service.name}
                   title={"I will do " + service.title}
-                  rating={service.rating}
-                  reviews={service.reviews}
-                  price={service.price}
+                  price={service.tier.price.toString()}  // Convert to string if needed
                 />
               </Link>
             ))}
