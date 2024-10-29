@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import Image from "next/image";
+import React, { useState } from "react";
 
 interface Review {
   rating: number;
@@ -11,9 +12,13 @@ interface ProfileProps {
   previousReviews: Review[];
 }
 
-const ProfileReviewPage: React.FC<ProfileProps> = ({ name, imageUrl, previousReviews }) => {
+const ProfileReviewPage: React.FC<ProfileProps> = ({
+  name,
+  imageUrl,
+  previousReviews,
+}) => {
   const [rating, setRating] = useState(0);
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState("");
 
   const handleRatingChange = (value: number) => setRating(value);
 
@@ -21,13 +26,19 @@ const ProfileReviewPage: React.FC<ProfileProps> = ({ name, imageUrl, previousRev
     e.preventDefault();
     console.log({ rating, description });
     setRating(0);
-    setDescription('');
+    setDescription("");
   };
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
       <div className="flex items-center space-x-4">
-        <img src={imageUrl} alt={name} className="w-16 h-16 rounded-full object-cover" />
+        <Image
+          src={imageUrl}
+          alt={name}
+          width={50}
+          height={50}
+          className="w-16 h-16 rounded-full object-cover"
+        />
         <h2 className="text-xl font-bold">{name}</h2>
       </div>
       <div className="mt-6">
@@ -40,7 +51,7 @@ const ProfileReviewPage: React.FC<ProfileProps> = ({ name, imageUrl, previousRev
                 key={index}
                 onClick={() => handleRatingChange(index + 1)}
                 className="w-8 h-8"
-                style={{ color: rating > index ? 'gold' : '#d1d5db' }}
+                style={{ color: rating > index ? "gold" : "#d1d5db" }}
               >
                 ★
               </button>
@@ -54,7 +65,10 @@ const ProfileReviewPage: React.FC<ProfileProps> = ({ name, imageUrl, previousRev
             rows={4}
             required
           />
-          <button type="submit" className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+          <button
+            type="submit"
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+          >
             Submit Review
           </button>
         </form>
@@ -66,7 +80,10 @@ const ProfileReviewPage: React.FC<ProfileProps> = ({ name, imageUrl, previousRev
             <div key={index} className="mt-4 p-4 bg-gray-50 rounded-lg">
               <div className="flex items-center">
                 {[...Array(5)].map((_, i) => (
-                  <span key={i} style={{ color: i < review.rating ? '#b59d00' : '#d1d5db' }}>
+                  <span
+                    key={i}
+                    style={{ color: i < review.rating ? "#b59d00" : "#d1d5db" }}
+                  >
                     ★
                   </span>
                 ))}

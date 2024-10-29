@@ -1,30 +1,43 @@
-import { NextResponse } from 'next/server';
-import clientPromise from '../../../../lib/mongodb';
-import Gigy from '../../../../models/gig'; // Mongoose model
+import { NextResponse } from "next/server";
+import clientPromise from "../../../../lib/mongodbzaid";
 
 const connectMongo = async () => {
   try {
     const client = await clientPromise;
-    const db = client.db('GIGO');
+    const db = client.db("GIGO");
     return db;
   } catch (error) {
-    console.error('Error connecting to MongoDB:', error);
-    throw new Error('Failed to connect to MongoDB');
+    console.error("Error connecting to MongoDB:", error);
+    throw new Error("Failed to connect to MongoDB");
   }
+};
+
+// Define the FilterConditions type
+type FilterConditions = {
+  keywords?: { $in: RegExp[] };
+  "tier.price"?: { $gte?: number; $lte?: number };
+  "tier.deliveryTime"?: { $lte?: number };
+  sellerDetails?: { $in: string[] };
+  reviews?: { $gte: number };
 };
 
 export async function POST(request: Request) {
   try {
     const db = await connectMongo();
-    const { skill, minPrice, maxPrice, deliveryTime, sellerDetails, reviews } = await request.json();
+    const { skill, minPrice, maxPrice, deliveryTime, sellerDetails, reviews } =
+      await request.json();
 
-    const filters: any = {};
+    const filters: FilterConditions = {};
 
-    // Construct regex pattern for partial word matching on `keywords` array
     if (skill) {
-      const words = skill.split(' ').map(word => word.trim()).filter(word => word.length > 0);
-      const regexPattern = words.map(word => `(?=.*${word})`).join('');
-      filters.keywords = { $in: [new RegExp(regexPattern, 'i')] }; // Case-insensitive
+      const words = skill
+        .split(" ")
+        .map((word: string) => word.trim())
+        .filter((word: string) => word.length > 0);
+      const regexPattern = words
+        .map((word: string) => `(?=.*${word})`)
+        .join("");
+      filters.keywords = { $in: [new RegExp(regexPattern, "i")] }; // Case-insensitive
     }
 
     if (minPrice) {
@@ -50,10 +63,13 @@ export async function POST(request: Request) {
     // Log the constructed query for debugging
     console.log("Database Query:", filters);
 
-    const filteredGigs = await db.collection('gigs').find(filters).toArray();
+    const filteredGigs = await db.collection("gigs").find(filters).toArray();
     return NextResponse.json(filteredGigs);
   } catch (error) {
-    console.error('POST Error:', error);
-    return NextResponse.json({ error: 'Failed to apply filters' }, { status: 500 });
+    console.error("POST Error:", error);
+    return NextResponse.json(
+      { error: "Failed to apply filters" },
+      { status: 500 }
+    );
   }
 }

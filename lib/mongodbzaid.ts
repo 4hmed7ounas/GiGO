@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb';
 
-const uri: string = "mongodb+srv://hadeed:hadeeddata@cluster0.vmrd5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"; // Directly using the MongoDB URI
+const uri: string = "mongodb+srv://zaidsharazi:zaid@cluster0.m2jfo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"; // Directly using the MongoDB URI
 
 const options = {
   serverSelectionTimeoutMS: 5000,

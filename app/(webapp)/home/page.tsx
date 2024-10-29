@@ -5,7 +5,7 @@ import { CiMenuBurger } from "react-icons/ci";
 import Button from "../../components/button";
 import Navbar from "../../components/header/navbar";
 import ServiceCard from "../../components/servicecard";
-import ProfileReviewPage from "../landingpage/components/reviews";
+import ProfileReviewPage from "../../components/reviews";
 interface Service {
   imageURL: string;
   profileImage: string;
