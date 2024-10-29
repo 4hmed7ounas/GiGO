@@ -5,6 +5,7 @@ import Navbar from "../../../app/components/header/navbar";
 import InputField from "../../../app/components/input";
 import SmallCard from "./components/smallcards";
 import BigCard from "./components/bigcards";
+import ProfileReviewPage from "../../components/reviews";
 import { useState } from "react";
 import { IMAGES } from "../../../share/assets";
 import {
@@ -17,7 +18,7 @@ import {
   FaMusic,
   FaBusinessTime,
   FaHandshake,
-} from "react-icons/fa";
+} from "react-icons/fa"; // Importing the review component
 
 const smallCardData = [
   {
@@ -187,6 +188,7 @@ const LandingPage: React.FC = () => {
           className="bg-secondary-600 text-white py-2 px-6 mt-4 rounded-lg hover:bg-secondary-700 transition-colors duration-300 ease-in-out"
         />
       </div>
+      <ProfileReviewPage name="John Doe" imageUrl="/path/to/image.jpg" previousReviews={[]} /> {/* Example usage of the review component */}
     </div>
   );
 };
