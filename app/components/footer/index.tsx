@@ -3,8 +3,7 @@ import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer className="bg-primary-50 text-black py-8">
-      <hr />
+    <footer className="bg-primary-900 text-white py-8">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center px-4">
         <div className="mb-4 md:mb-0">
           <h2 className="text-2xl font-bold">GIGO</h2>
@@ -16,16 +15,16 @@ const Footer = () => {
           </p>
         </div>
         <div className="flex gap-4">
-          <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="text-black hover:text-primary-900 transition-transform transform duration-1000 ease-in-out">
+          <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:text-primary-50 transition-transform transform duration-1000 ease-in-out">
             <FaFacebook size={24} />
           </a>
-          <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="text-black hover:text-primary-900 transition-transform transform duration-1000 ease-in-out">
+          <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:text-primary-50 transition-transform transform duration-1000 ease-in-out">
             <FaInstagram size={24} />
           </a>
-          <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="text-black hover:text-primary-900 transition-transform transform duration-1000 ease-in-out">
+          <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:text-primary-50 transition-transform transform duration-1000 ease-in-out">
             <FaLinkedin size={24} />
           </a>
-          <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" className="text-black hover:text-primary-900 transition-transform transform duration-1000 ease-in-out">
+          <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:text-primary-50 transition-transform transform duration-1000 ease-in-out">
             <FaTwitter size={24} />
           </a>
         </div>

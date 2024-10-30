@@ -5,7 +5,6 @@ import Navbar from "../../../app/components/header/navbar";
 import InputField from "../../../app/components/input";
 import SmallCard from "./components/smallcards";
 import BigCard from "./components/bigcards";
-import ProfileReviewPage from "../../components/reviews";
 import { useState } from "react";
 import { IMAGES } from "../../../share/assets";
 import {
@@ -122,15 +121,15 @@ const LandingPage: React.FC = () => {
           backgroundPosition: "center",
           aspectRatio: "16 / 5",
           borderRadius: "15px",
-          height:"60vh",
+          height: "60vh",
           width: "100%",
           maxWidth: "90vw",
         }}
       >
         <div className="flex flex-col items-center justify-center h-full text-white p-4 md:p-0">
           <h1 className="text-2xl md:text-5xl font-bold mb-4 text-center">
-            Find the right{" "}
-            <span className="text-secondary-400">freelance</span> <br />
+            Find the right <span className="text-secondary-400">freelance</span>{" "}
+            <br />
             service, right away
           </h1>
           <div className="flex w-full md:w-[90%] justify-center mt-8">
@@ -163,7 +162,9 @@ const LandingPage: React.FC = () => {
         </div>
       </div>
       <div className="flex flex-col items-center mt-12 w-full max-w-[90%]">
-        <h1 className="text-2xl md:text-4xl font-bold mb-4">Explore Our Services</h1>
+        <h1 className="text-2xl md:text-4xl font-bold mb-4">
+          Explore Our Services
+        </h1>
         <div className="flex flex-wrap justify-center gap-4">
           {bigCardData.map((card, index) => (
             <BigCard
@@ -188,7 +189,6 @@ const LandingPage: React.FC = () => {
           className="bg-secondary-600 text-white py-2 px-6 mt-4 rounded-lg hover:bg-secondary-700 transition-colors duration-300 ease-in-out"
         />
       </div>
-      <ProfileReviewPage name="John Doe" imageUrl="/path/to/image.jpg" previousReviews={[]} /> {/* Example usage of the review component */}
     </div>
   );
 };
