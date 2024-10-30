@@ -3,13 +3,13 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import ProfileReview from "./components/reviews";
-import LoadingSpinner from "../../components/LoadingSpinner";
 import ClientNavbar from "../../components/header/clientnavbar";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/config";
 import { signOut } from "firebase/auth";
 import { FaClock, FaMoneyBill } from "react-icons/fa";
 import Button from "../../components/button";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 interface Tier {
   price: number;
