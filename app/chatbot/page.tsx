@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useMemo } from "react";
+import React, {useState, useEffect, useMemo } from "react";
 import {
   GoogleGenerativeAI,
   HarmCategory,
@@ -180,7 +180,7 @@ export default function Chatbot() {
     <div
       className={`flex flex-col ${
         !isExpanded ? "w-[90%] h-[85%] md:w-[30%]" : "w-[90%] h-[50px] md:w-[20%]"
-      } bg-gray-100 fixed bottom-0 right-4 shadow-xl overflow-hidden transition-all duration-300 md:bottom-0 md:right-6`}
+      } bg-gray-100 fixed bottom-0 right-4 shadow-xl overflow-hidden transition-all duration-300 md:bottom-0 md:right-6 z-10`}
     >
       <div className="bg-gradient-to-r from-primary-800 to-primary-900 text-secondary-300 p-4 shadow-md flex justify-between items-center">
         <h1 className="text-lg md:text-2xl font-bold">GiGO. Chat</h1>
