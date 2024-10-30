@@ -1,24 +1,24 @@
 "use client";
+import { signOut } from "firebase/auth";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { CiMenuBurger } from "react-icons/ci";
 import Button from "../../components/button";
 import ClientNavbar from "../../components/header/clientnavbar";
 import ServiceCard from "../../components/servicecard";
-import AdvanceFilters from "./components/advancefilters";
 import { auth } from "../../firebase/config";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useRouter } from "next/navigation";
-import { signOut } from "firebase/auth";
+import AdvanceFilters from "./components/advancefilters";
 
 interface Service {
+  _id: string; // Use _id instead of gigId
   imageURL: string;
   profileImage: string;
   title: string;
   tier: {
     price: number;
     deliveryTime: number;
-    details: string;
   };
 }
 
@@ -37,7 +37,6 @@ export default function Hero() {
         console.error(error);
       }
     };
-
     fetchServices();
   }, []);
 
@@ -68,6 +67,7 @@ export default function Hero() {
       console.error(error);
     }
   };
+
   const [user] = useAuthState(auth);
   const router = useRouter();
 
@@ -100,36 +100,22 @@ export default function Hero() {
         </div>
         <div className="px-5 sm:px-10 md:px-20 py-7">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mx-auto">
-            {/* {services.map((service, index) => (
-              <Link href={`/servicedetails`} key={index}>
-                <ServiceCard
-                  image={service.imageURL}
-                  profileImage={service.profileImage}
-                  title={"I will do " + service.title}
-                  price={service.tier.price.toString()}
-                />
-              </Link>
-            ))} */}
-            {services.map((service, index) => (
+            {services.map((service) => (
               <Link
                 href={{
                   pathname: "/servicedetails",
                   query: {
-                    imageURL: service.imageURL,
-                    profileImage: service.profileImage,
-                    title: service.title,
-                    price: service.tier.price,
-                    deliveryTime: service.tier.deliveryTime,
-                    details: service.tier.details,
+                    gigId: service._id, // Pass _id in query
                   },
                 }}
-                key={index}
+                key={service._id}
               >
                 <ServiceCard
                   image={service.imageURL}
                   profileImage={service.profileImage}
                   title={"I will do " + service.title}
                   price={service.tier.price.toString()}
+                  gigId={service._id} // Pass _id as prop to ServiceCard
                 />
               </Link>
             ))}
