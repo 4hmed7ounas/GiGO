@@ -12,6 +12,12 @@ interface ServiceCardProps {
   price: string;
 }
 
+const truncateTitle = (title: string, maxLength: number) => {
+  return title.length > maxLength
+    ? `${title.substring(0, maxLength)}...`
+    : title;
+};
+
 const ServiceCard: React.FC<ServiceCardProps> = ({
   image,
   profileImage,
@@ -47,18 +53,16 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           />
           <div className="ml-3">
             <h3 className="text-sm font-medium">John Doe</h3>
-            <p className="text-sm text-gray-600">{title}</p>
+            <p className="text-sm text-gray-600">{truncateTitle(title, 35)}</p>
           </div>
         </div>
 
         <div className="mt-3 flex w-full items-center">
-            <div className="flex items-center text-yellow-400">
-              <FaStar />
-              <span className="ml-1 text-sm font-semibold text-black">
-                5
-              </span>
-                <span className="ml-1 text-gray-500">(3)</span>
-            </div>
+          <div className="flex items-center text-yellow-400">
+            <FaStar />
+            <span className="ml-1 text-sm font-semibold text-black">5</span>
+            <span className="ml-1 text-gray-500">(3)</span>
+          </div>
           <div className="ml-auto text-sm font-semibold text-black">
             From {price}
           </div>

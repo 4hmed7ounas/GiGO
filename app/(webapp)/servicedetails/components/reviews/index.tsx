@@ -8,11 +8,11 @@ interface Review {
 
 interface ProfileProps {
   name: string;
-  imageUrl: string; // URL of the user's image
+  imageUrl: string;
   previousReviews: Review[];
 }
 
-const ProfileReviewPage: React.FC<ProfileProps> = ({
+const ProfileReview: React.FC<ProfileProps> = ({
   name,
   imageUrl,
   previousReviews,
@@ -50,7 +50,7 @@ const ProfileReviewPage: React.FC<ProfileProps> = ({
                 type="button"
                 key={index}
                 onClick={() => handleRatingChange(index + 1)}
-                className="w-8 h-8"
+                className="w-8 h-8 text-3xl mx-1"
                 style={{ color: rating > index ? "gold" : "#d1d5db" }}
               >
                 ★
@@ -99,4 +99,4 @@ const ProfileReviewPage: React.FC<ProfileProps> = ({
   );
 };
 
-export default ProfileReviewPage;
+export default ProfileReview;

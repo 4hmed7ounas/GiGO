@@ -17,6 +17,7 @@ import Button from "../../button";
 import { FaBell, FaEnvelope } from "react-icons/fa";
 import { IMAGES } from "../../../../share/assets";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const navigation = [{ name: "Orders", href: "/", current: false }];
 
@@ -29,12 +30,17 @@ interface ClientNavbarProps {
 }
 
 export default function ClientNavbar({ onSignOut }: ClientNavbarProps) {
+  const router = useRouter();
   const [search, setSearch] = useState("");
   const handleSearch = () => {
+    router.push("/home");
     setSearch("");
   };
   return (
-    <Disclosure as="nav" className="bg-primary-900 fixed top-0 left-0 right-0 z-10">
+    <Disclosure
+      as="nav"
+      className="bg-primary-900 fixed top-0 left-0 right-0 z-10"
+    >
       <div className="mx-auto max-w-[90%] px-2 lg:px-6 xl:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-1/2 transform -translate-x-1/2 flex items-center lg:hidden">
