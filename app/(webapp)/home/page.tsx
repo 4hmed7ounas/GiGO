@@ -10,7 +10,7 @@ import ClientNavbar from "../../components/header/clientnavbar";
 import ServiceCard from "../../components/servicecard";
 import { auth } from "../../firebase/config";
 import AdvanceFilters from "./components/advancefilters";
-import LoadingSpinner from "../../components/LoadingSpinner";
+import ClipLoader from "react-spinners/ClipLoader";
 
 interface Service {
   _id: string;
@@ -90,7 +90,9 @@ export default function Hero() {
 
   const Loading = () => (
     <div className="text-center text-lg">
-      <LoadingSpinner />
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <ClipLoader color="#3498db" size={50} />
+    </div>
     </div>
   );
 

@@ -9,7 +9,7 @@ import { auth } from "../../firebase/config";
 import { signOut } from "firebase/auth";
 import { FaClock, FaMoneyBill } from "react-icons/fa";
 import Button from "../../components/button";
-import LoadingSpinner from "../../components/LoadingSpinner";
+import ClipLoader from "react-spinners/ClipLoader";
 
 interface Tier {
   price: number;
@@ -26,7 +26,9 @@ interface Service {
 
 const Loading = () => (
   <div className="text-center text-lg">
-    <LoadingSpinner />
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <ClipLoader color="#3498db" size={50} />
+    </div>
   </div>
 );
 
