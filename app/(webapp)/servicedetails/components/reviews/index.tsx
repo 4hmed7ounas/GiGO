@@ -30,19 +30,19 @@ const ProfileReview: React.FC<ProfileProps> = ({
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
+    <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       <div className="flex items-center space-x-4">
         <Image
           src={imageUrl}
           alt={name}
-          width={50}
-          height={50}
-          className="w-16 h-16 rounded-full object-cover"
+          width={60}
+          height={60}
+          className="rounded-full border-2 border-primary-500 object-cover"
         />
-        <h2 className="text-xl font-bold">{name}</h2>
+        <h2 className="text-2xl font-bold text-gray-800">{name}</h2>
       </div>
       <div className="mt-6">
-        <h3 className="text-lg font-semibold">Leave a Review</h3>
+        <h3 className="text-xl font-semibold text-gray-700">Leave a Review</h3>
         <form onSubmit={handleSubmit} className="mt-4">
           <div className="flex items-center">
             {[...Array(5)].map((_, index) => (
@@ -50,8 +50,9 @@ const ProfileReview: React.FC<ProfileProps> = ({
                 type="button"
                 key={index}
                 onClick={() => handleRatingChange(index + 1)}
-                className="w-8 h-8 text-3xl mx-1"
-                style={{ color: rating > index ? "gold" : "#d1d5db" }}
+                className={`w-8 h-8 text-2xl mx-1 transition-transform duration-200 transform ${
+                  rating > index ? "text-yellow-500" : "text-gray-300"
+                } hover:scale-110`}
               >
                 ★
               </button>
@@ -61,23 +62,23 @@ const ProfileReview: React.FC<ProfileProps> = ({
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Describe your experience..."
-            className="mt-4 p-3 w-full border rounded-lg"
+            className="mt-4 p-3 w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-primary-300 transition duration-150"
             rows={4}
             required
           />
           <button
             type="submit"
-            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition duration-200"
           >
             Submit Review
           </button>
         </form>
       </div>
       <div className="mt-8">
-        <h3 className="text-lg font-semibold">Previous Reviews</h3>
+        <h3 className="text-xl font-semibold text-gray-700">Previous Reviews</h3>
         {previousReviews.length ? (
           previousReviews.map((review, index) => (
-            <div key={index} className="mt-4 p-4 bg-gray-50 rounded-lg">
+            <div key={index} className="mt-4 p-4 bg-gray-50 rounded-lg shadow-sm">
               <div className="flex items-center">
                 {[...Array(5)].map((_, i) => (
                   <span

@@ -10,9 +10,10 @@ import ClientNavbar from "../../components/header/clientnavbar";
 import ServiceCard from "../../components/servicecard";
 import { auth } from "../../firebase/config";
 import AdvanceFilters from "./components/advancefilters";
+import ClipLoader from "react-spinners/ClipLoader";
 
 interface Service {
-  _id: string; // Use _id instead of gigId
+  _id: string;
   imageURL: string;
   profileImage: string;
   title: string;
@@ -25,9 +26,11 @@ interface Service {
 export default function Hero() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [services, setServices] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
     const fetchServices = async () => {
+      setLoading(true);
       try {
         const response = await fetch("/api/services");
         if (!response.ok) throw new Error("Failed to fetch services");
@@ -35,6 +38,8 @@ export default function Hero() {
         setServices(data);
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchServices();
@@ -83,6 +88,14 @@ export default function Hero() {
     sessionStorage.removeItem("user");
   };
 
+  const Loading = () => (
+    <div className="text-center text-lg">
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <ClipLoader color="#3498db" size={50} />
+    </div>
+    </div>
+  );
+
   return (
     <div>
       <ClientNavbar onSignOut={handleSignOut} />
@@ -99,27 +112,31 @@ export default function Hero() {
           />
         </div>
         <div className="px-5 sm:px-10 md:px-20 py-7">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mx-auto">
-            {services.map((service) => (
-              <Link
-                href={{
-                  pathname: "/servicedetails",
-                  query: {
-                    gigId: service._id, // Pass _id in query
-                  },
-                }}
-                key={service._id}
-              >
-                <ServiceCard
-                  image={service.imageURL}
-                  profileImage={service.profileImage}
-                  title={"I will do " + service.title}
-                  price={service.tier.price.toString()}
-                  gigId={service._id} // Pass _id as prop to ServiceCard
-                />
-              </Link>
-            ))}
-          </div>
+          {loading ? (
+            <Loading />
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mx-auto">
+              {services.map((service) => (
+                <Link
+                  href={{
+                    pathname: "/servicedetails",
+                    query: {
+                      gigId: service._id, // Pass _id in query
+                    },
+                  }}
+                  key={service._id}
+                >
+                  <ServiceCard
+                    image={service.imageURL}
+                    profileImage={service.profileImage}
+                    title={"I will do " + service.title}
+                    price={service.tier.price.toString()}
+                    gigId={service._id} // Pass _id as prop to ServiceCard
+                  />
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </div>
       <AdvanceFilters
