@@ -1,6 +1,6 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 import ProfileReview from "./components/reviews";
 import Image from "next/image";
 
@@ -41,4 +41,10 @@ const ServiceDetails = () => {
   );
 };
 
-export default ServiceDetails;
+const ServiceDetailsWrapper = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <ServiceDetails />
+  </Suspense>
+);
+
+export default ServiceDetailsWrapper;
