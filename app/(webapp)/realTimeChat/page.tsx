@@ -21,21 +21,40 @@ const App: React.FC = () => {
   const users: User[] = [
     {
       id: 1,
-      sender: "Karan",
-      avatarUrl: "/karan.jpg",
+      sender: "Hadeed Ahmed",
+      avatarUrl: "/hadeed.jpg",
       messages: [
         {
           id: 1,
-          text: "understand Thanks, will do it myself",
-          sender: "Karan",
+          text: "Hi there! I found your profile, and I’m looking for someone to help build a website. Are you available for new projects?",
+          sender: "Me",
         },
-        { id: 2, text: "Okay bro! Thanks for coming", sender: "Me" },
+        {
+          id: 2,
+          text: "Hello! Thanks for reaching out. I’d be happy to discuss your project. Could you tell me more about what you're looking for?",
+          sender: "Hadeed",
+        },
+        {
+          id: 3,
+          text: "Sure! I need a modern, responsive website for my business. ",
+          sender: "Me",
+        },
+        {
+          id: 4,
+          text: "I’d like it to have a homepage, a few service pages, and a contact form.",
+          sender: "Me",
+        },
+        {
+          id: 5,
+          text: "It would be great if we could integrate social media feeds too. Do you have experience with that?",
+          sender: "Me",
+        },
       ],
     },
     {
       id: 2,
-      sender: "Alex",
-      avatarUrl: "/alex.jpg",
+      sender: "Zaid Shabbir",
+      avatarUrl: "/Zaid.jpg",
       messages: [
         { id: 3, text: "Looking forward to our meeting", sender: "Alex" },
       ],

@@ -27,6 +27,7 @@ export default function Hero() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true); // Loading state
+  const [searchResultsExist, setSearchResultsExist] = useState(false); // State to track search results
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -42,8 +43,12 @@ export default function Hero() {
         setLoading(false);
       }
     };
-    fetchServices();
-  }, []);
+
+    // Only fetch services if there are no search results
+    if (!searchResultsExist) {
+      fetchServices();
+    }
+  }, [searchResultsExist]); // Dependency array includes searchResultsExist
 
   const handleFilter = () => {
     setIsPopupOpen(true);
@@ -68,6 +73,7 @@ export default function Hero() {
       if (!response.ok) throw new Error("Failed to fetch filtered services");
       const data: Service[] = await response.json();
       setServices(data);
+      setSearchResultsExist(data.length > 0); // Update state based on results
     } catch (error) {
       console.error(error);
     }
@@ -91,14 +97,14 @@ export default function Hero() {
   const Loading = () => (
     <div className="text-center text-lg">
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <ClipLoader color="#3498db" size={50} />
-    </div>
+        <ClipLoader color="#3498db" size={50} />
+      </div>
     </div>
   );
 
   return (
     <div>
-      <ClientNavbar onSignOut={handleSignOut} />
+      <ClientNavbar onSignOut={handleSignOut} onSearchResults={setServices} />
       <div className="mt-16">
         <div className="flex justify-start px-5 sm:px-10 md:px-20 py-7 flex-col gap-3">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-black">

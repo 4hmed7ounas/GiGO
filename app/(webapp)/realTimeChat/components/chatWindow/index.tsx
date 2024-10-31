@@ -52,7 +52,6 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
       <div className="bg-gradient-to-r from-primary-600 to-primary-800 text-white p-4 flex justify-between items-center">
         <div>
           <h3 className="text-lg font-semibold">{sender}</h3>
-          <p className="text-xs text-gray-200">Last seen: 9 hours ago</p>
         </div>
         <button
           onClick={onClose}
@@ -74,7 +73,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
               <Image
                 src="/karan.jpg"
                 alt={message.sender}
-                className="w-8 h-8 rounded-full"
+                className="w-8 h-8 rounded-full mx-2"
                 width={8}
                 height={8}
               />
@@ -82,7 +81,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
             <div
               className={`max-w-[75%] p-3 rounded-lg shadow-md ${
                 message.sender === "Me"
-                  ? "bg-primary-500 text-white"
+                  ? "bg-primary-700 text-white"
                   : "bg-gray-200 text-gray-800"
               }`}
             >
@@ -95,7 +94,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
               <Image
                 src="/me.jpg"
                 alt="Me"
-                className="w-8 h-8 rounded-full"
+                className="w-8 h-8 rounded-full mx-2"
                 width={8}
                 height={8}
               />
