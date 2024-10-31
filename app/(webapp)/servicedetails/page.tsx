@@ -94,7 +94,7 @@ const ServiceDetails = () => {
                 height={50}
                 className="w-16 h-16 rounded-full border-2 border-primary-600"
               />
-              <p className="text-lg font-semibold ml-4">Ahmed Younas</p>
+              <p className="text-lg font-semibold ml-4">Hadeed Ahmed</p>
             </div>
             <div className="flex items-center mt-4">
               <Image

@@ -22,6 +22,11 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ users, onUserClick }) => {
+  const truncateTitle = (title: string, maxLength: number) => {
+    return title.length > maxLength
+      ? `${title.substring(0, maxLength)}...`
+      : title;
+  };
   return (
     <div className="w-1/4 bg-gray-100 border-r border-gray-300 h-full p-4">
       <h2 className="text-lg font-semibold mb-4 text-gray-800">All Messages</h2>
@@ -30,7 +35,7 @@ const Sidebar: React.FC<SidebarProps> = ({ users, onUserClick }) => {
           <div
             key={user.id}
             className="flex items-center space-x-3 cursor-pointer hover:bg-gray-200 p-2 rounded-lg transition-colors duration-200 ease-in-out"
-            onClick={() => onUserClick(user)} // Call the onUserClick function with the user
+            onClick={() => onUserClick(user)}
           >
             <Image 
               src={user.avatarUrl || "/default-avatar.jpg"} 
@@ -41,7 +46,7 @@ const Sidebar: React.FC<SidebarProps> = ({ users, onUserClick }) => {
             />
             <div className="flex-1">
               <h3 className="font-medium text-gray-700">{user.sender}</h3>
-              <p className="text-sm text-gray-500 truncate">{user.messages[0]?.text || "No messages"}</p>
+              <p className="text-sm text-gray-500 truncate">{truncateTitle(user.messages[0]?.text, 30)  || "No messages"}</p>
             </div>
           </div>
         ))}
