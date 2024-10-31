@@ -17,7 +17,19 @@ import Button from "../../button";
 import { FaBell, FaEnvelope } from "react-icons/fa";
 import { IMAGES } from "../../../../share/assets";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+
+// Define the Service interface
+interface Service {
+  _id: string;
+  imageURL: string;
+  profileImage: string;
+  title: string;
+  tier: {
+    price: number;
+    deliveryTime: number;
+  };
+}
 
 const navigation = [{ name: "Orders", href: "/", current: false }];
 
@@ -26,16 +38,53 @@ function classNames(...classes: (string | boolean)[]) {
 }
 
 interface ClientNavbarProps {
-  onSignOut: () => Promise<void>; // Define the prop type for onSignOut
+  onSignOut: () => Promise<void>;
+  onSearchResults?: (data: Service[]) => void; // Make onSearchResults optional
 }
 
-export default function ClientNavbar({ onSignOut }: ClientNavbarProps) {
+export default function ClientNavbar({
+  onSignOut,
+  onSearchResults,
+}: ClientNavbarProps) {
   const router = useRouter();
+  const pathname = usePathname(); // Get current path
   const [search, setSearch] = useState("");
-  const handleSearch = () => {
-    router.push("/home");
-    setSearch("");
+
+  const handleSearch = async () => {
+    if (search.trim()) {
+      // If not on /home, redirect to /home first
+      if (pathname !== "/home") {
+        router.push("/home");
+        // Delay fetch to wait for navigation to complete
+        setTimeout(async () => await performSearch(), 100);
+      } else {
+        await performSearch();
+      }
+    }
   };
+
+  const performSearch = async () => {
+    try {
+      const response = await fetch("/api/searchData", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ search }),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        if (onSearchResults) {
+          // Check if onSearchResults is defined
+          onSearchResults(data);
+        }
+        setSearch("");
+      } else {
+        console.error("Failed to fetch search results");
+      }
+    } catch (error) {
+      console.error("Error searching:", error);
+    }
+  };
+
   return (
     <Disclosure
       as="nav"
@@ -130,7 +179,7 @@ export default function ClientNavbar({ onSignOut }: ClientNavbarProps) {
               >
                 <MenuItem>
                   <Link
-                    href="/"
+                    href="/profile/user"
                     className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-primary-100"
                   >
                     Your Profile
@@ -138,7 +187,7 @@ export default function ClientNavbar({ onSignOut }: ClientNavbarProps) {
                 </MenuItem>
                 <MenuItem>
                   <Link
-                    href="/"
+                    href="/about"
                     className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-primary-100"
                   >
                     Settings
@@ -176,20 +225,19 @@ export default function ClientNavbar({ onSignOut }: ClientNavbarProps) {
             />
           </div>
           {navigation.map((item) => (
-            <DisclosureButton
+            <Disclosure.Button
               key={item.name}
-              as="a"
+              as={Link}
               href={item.href}
-              aria-current={item.current ? "page" : undefined}
               className={classNames(
                 item.current
                   ? "bg-primary-900 text-white"
-                  : "text-primary-50 hover:bg-primary-700 hover:text-white",
+                  : "text-primary-50 hover:bg-primary-700 hover:text-white transition-colors duration-300 ease-in-out",
                 "block rounded-md px-3 py-2 text-base font-medium"
               )}
             >
               {item.name}
-            </DisclosureButton>
+            </Disclosure.Button>
           ))}
         </div>
       </DisclosurePanel>

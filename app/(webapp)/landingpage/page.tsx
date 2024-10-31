@@ -2,10 +2,8 @@
 import React from "react";
 import Button from "../../../app/components/button";
 import Navbar from "../../../app/components/header/navbar";
-import InputField from "../../../app/components/input";
 import SmallCard from "./components/smallcards";
 import BigCard from "./components/bigcards";
-import { useState } from "react";
 import { IMAGES } from "../../../share/assets";
 import {
   FaCode,
@@ -99,17 +97,6 @@ const getRandomLightColor = () => {
 };
 
 const LandingPage: React.FC = () => {
-  const [search, setSearch] = useState("");
-
-  const handleSearch = () => {
-    if (search.trim() === "") {
-      alert("Please enter a search term.");
-      return;
-    }
-    console.log("Searching for:", search);
-    setSearch("");
-  };
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <Navbar />
@@ -132,20 +119,6 @@ const LandingPage: React.FC = () => {
             <br />
             service, right away
           </h1>
-          <div className="flex w-full md:w-[90%] justify-center mt-8">
-            <InputField
-              type="text"
-              placeholder="Search for any service..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-[70%] p-2 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-primary-300 focus:border-transparent text-black placeholder:text-sm"
-            />
-            <Button
-              text="Search"
-              onClick={handleSearch}
-              className="bg-secondary-600 text-white py-2 px-4 w-[30%] rounded-r-lg hover:bg-secondary-700 transition-colors duration-300 ease-in-out"
-            />
-          </div>
         </div>
       </div>
       <div className="flex flex-col items-center mt-8 w-full max-w-[90%]">
