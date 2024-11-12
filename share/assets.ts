@@ -37,4 +37,22 @@ export const IMAGES = {
     height: 600, // specify the height
     priority: true, // add this line to optimize LCP
   },
+  ahmed: {
+    src: `${ASSETS_BASE_URL}/ahmed.png`,
+    width: 800, // specify the width
+    height: 600, // specify the height
+    priority: true, // add this line to optimize LCP
+  },
+  hadeed: {
+    src: `${ASSETS_BASE_URL}/hadeed.png`,
+    width: 800, // specify the width
+    height: 600, // specify the height
+    priority: true, // add this line to optimize LCP
+  },
+  zaid: {
+    src: `${ASSETS_BASE_URL}/zaid.png`,
+    width: 800, // specify the width
+    height: 600, // specify the height
+    priority: true, // add this line to optimize LCP
+  },
 };
