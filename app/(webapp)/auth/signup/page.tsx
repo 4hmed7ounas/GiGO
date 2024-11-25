@@ -29,10 +29,27 @@ const Signup: React.FC = () => {
     useCreateUserWithEmailAndPassword(auth);
   const [signInWithGoogle] = useSignInWithGoogle(auth);
 
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePassword = (password: string) => {
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,30}$/;
+    return passwordRegex.test(password);
+  };
+
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters long.");
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    if (!validatePassword(password)) {
+      setError(
+        "Password must be between 8-30 characters, contain at least one number and one uppercase letter."
+      );
       return;
     }
 

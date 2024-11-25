@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Button from "../../../app/components/button";
 import Navbar from "../../../app/components/header/navbar";
 import SmallCard from "./components/smallcards";
 import BigCard from "./components/bigcards";
@@ -16,6 +15,7 @@ import {
   FaBusinessTime,
   FaHandshake,
 } from "react-icons/fa"; // Importing the review component
+import Link from "next/link";
 
 const smallCardData = [
   {
@@ -48,43 +48,38 @@ const smallCardData = [
 const bigCardData = [
   {
     title: "Programming & Tech",
-    image: IMAGES.bigcard1img.src,
+    image: IMAGES.programming.src,
     link: "/services/programming",
   },
   {
     title: "Graphics & Design",
-    image: IMAGES.bigcard2img.src,
+    image: IMAGES.graphics.src,
     link: "/services/graphics",
   },
   {
     title: "Digital Marketing",
-    image: IMAGES.bigcard3img.src,
+    image: IMAGES.digital.src,
     link: "/services/marketing",
   },
   {
     title: "Writing & Translation",
-    image: IMAGES.bigcard1img.src,
+    image: IMAGES.contentwriting.src,
     link: "/services/writing",
   },
   {
     title: "Video & Animation",
-    image: IMAGES.bigcard2img.src,
+    image: IMAGES.videoanimation.src,
     link: "/services/video",
   },
-  { title: "AI Services", image: IMAGES.bigcard3img.src, link: "/services/ai" },
+  { title: "AI Services", image: IMAGES.AI.src, link: "/services/ai" },
   {
     title: "Music & Audio",
-    image: IMAGES.bigcard1img.src,
+    image: IMAGES.music.src,
     link: "/services/music",
   },
   {
-    title: "Business",
-    image: IMAGES.bigcard2img.src,
-    link: "/services/business",
-  },
-  {
     title: "Consulting",
-    image: IMAGES.bigcard3img.src,
+    image: IMAGES.consulting.src,
     link: "/services/consulting",
   },
 ];
@@ -154,13 +149,12 @@ const LandingPage: React.FC = () => {
         <h2 className="text-2xl md:text-3xl font-bold text-center text-white">
           Freelance services at your fingertips!
         </h2>
-        <Button
-          text="Join GiGO."
-          onClick={() => {
-            "/auth/signup";
-          }}
-          className="bg-secondary-600 text-white py-2 px-6 mt-4 rounded-lg hover:bg-secondary-700 transition-colors duration-300 ease-in-out"
-        />
+        <Link
+          href="/auth/signup"
+          className="text-primary-50 py-2 px-5 bg-secondary-600 rounded-md mt-4 hover:bg-secondary-700"
+        >
+          Join
+        </Link>
       </div>
     </div>
   );
