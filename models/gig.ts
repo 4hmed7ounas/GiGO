@@ -12,8 +12,8 @@ const gigySchema = new mongoose.Schema({
     required: true 
   },
   imageURL: { type: String, required: true }, // Assuming a single image URL
-  userId: { type: String, required: true }, // Assuming a single image URL
-
+  userId: { type: String, required: true }, 
+  username: { type: String, required: true }, // New username field
 });
 
 // Check if the model already exists before creating it

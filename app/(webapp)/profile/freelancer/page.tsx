@@ -75,8 +75,8 @@ const FreelancerProfile: React.FC = () => {
   };
 
   const handleCreateGig = () => {
-    if (userId) {
-        router.push(`/createGig?userId=${userId}`); // Pass userId as a query parameter
+    if (userId && userData?.username) {
+      router.push(`/createGig?userId=${userId}&username=${userData.name}`); // Include username in query parameters
     }
 };
 

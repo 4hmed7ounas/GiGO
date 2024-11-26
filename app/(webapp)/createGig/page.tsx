@@ -7,6 +7,7 @@ import InputField from "../../components/input";
 function MakeServicesContent() {
     const searchParams = useSearchParams(); // Get search params
     const userId = searchParams.get("userId"); // Retrieve userId from query parameters
+    const username = searchParams.get("username"); // Retrieve username from query parameters
 
     const [title, setTitle] = useState("");
     const [keywords, setkeywords] = useState<string[]>([]);
@@ -61,6 +62,7 @@ function MakeServicesContent() {
             description,
             imageURL,
             userId: userId || "", // Include userId in formData
+            username: username || "", // Include username in formData
         };
 
         console.log(formData);
@@ -92,10 +94,10 @@ function MakeServicesContent() {
             alert("An error occurred while creating the service.");
         }
     };
-
     return (
         <div className="w-full flex justify-center py-8">
             <div className="w-[80%] lg:w-[40%] bg-white p-6 rounded-lg shadow-lg">
+                <span>{username}</span>
                 <form className="flex flex-col space-y-4" onSubmit={handleSubmit}>
                     {/* Title */}
                     <div>
