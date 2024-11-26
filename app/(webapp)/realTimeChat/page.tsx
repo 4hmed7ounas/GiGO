@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Sidebar from "./components/sidebar";
 import ChatWindow from "./components/chatWindow";
+import { IMAGES } from "../../../share/assets";
 
 interface Message {
   id: number;
@@ -22,7 +23,7 @@ const App: React.FC = () => {
     {
       id: 1,
       sender: "Hadeed Ahmed",
-      avatarUrl: "/hadeed.jpg",
+      avatarUrl: IMAGES.hadeed.src,
       messages: [
         {
           id: 1,
@@ -54,7 +55,7 @@ const App: React.FC = () => {
     {
       id: 2,
       sender: "Zaid Shabbir",
-      avatarUrl: "/zaid.jpg",
+      avatarUrl: IMAGES.zaid.src,
       messages: [
         { id: 3, text: "Looking forward to our meeting", sender: "Zaid" },
       ],
@@ -62,7 +63,7 @@ const App: React.FC = () => {
     {
       id: 3,
       sender: "Ahmed Younas",
-      avatarUrl: "/ahmed.jpg",
+      avatarUrl: IMAGES.ahmed.src,
       messages: [
         { id: 1, text: "Hey, can you share the project files?", sender: "Ahmed" },
         { id: 2, text: "Sure, I'll send them shortly!", sender: "Me" },

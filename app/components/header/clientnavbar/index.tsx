@@ -19,7 +19,6 @@ import { IMAGES } from "../../../../share/assets";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 
-// Define the Service interface
 interface Service {
   _id: string;
   imageURL: string;
@@ -31,7 +30,7 @@ interface Service {
   };
 }
 
-const navigation = [{ name: "Orders", href: "/", current: false }];
+const navigation = [{ name: "Orders", href: "/orders", current: false }];
 
 function classNames(...classes: (string | boolean)[]) {
   return classes.filter(Boolean).join(" ");
@@ -52,10 +51,8 @@ export default function ClientNavbar({
 
   const handleSearch = async () => {
     if (search.trim()) {
-      // If not on /home, redirect to /home first
       if (pathname !== "/home") {
         router.push("/home");
-        // Delay fetch to wait for navigation to complete
         setTimeout(async () => await performSearch(), 100);
       } else {
         await performSearch();
@@ -82,6 +79,12 @@ export default function ClientNavbar({
       }
     } catch (error) {
       console.error("Error searching:", error);
+    }
+  };
+
+  const handleMessage = async () => {
+    if (pathname !== "/realTimeChat") {
+      router.push("/realTimeChat");
     }
   };
 
@@ -156,6 +159,7 @@ export default function ClientNavbar({
             <button
               type="button"
               className="relative bg-primary-900 px-2 text-gray-200 hover:text-white"
+              onClick={handleMessage}
             >
               <span className="absolute -inset-1.5" />
               <span className="sr-only">View notifications</span>
@@ -168,7 +172,7 @@ export default function ClientNavbar({
                   <span className="sr-only">Open user menu</span>
                   <Image
                     alt=""
-                    src={IMAGES.gigo}
+                    src={IMAGES.ahmed}
                     className="h-8 w-8 rounded-full"
                   />
                 </MenuButton>

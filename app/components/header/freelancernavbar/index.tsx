@@ -15,12 +15,13 @@ import { RxCross1 } from "react-icons/rx";
 import { FaBell, FaEnvelope } from "react-icons/fa";
 import { IMAGES } from "../../../../share/assets";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
 
 const navigation = [
-  { name: "Dashboard", href: "/", current: false },
-  { name: "Listings", href: "/", current: false },
-  { name: "Orders", href: "/", current: false },
-  { name: "Earnings", href: "/", current: false },
+  { name: "Dashboard", href: "/dashboard", current: false },
+  { name: "Listings", href: "/listings", current: false },
+  { name: "Orders", href: "/orders", current: false },
+  { name: "Earnings", href: "/earnings", current: false },
 ];
 
 function classNames(...classes: (string | boolean)[]) {
@@ -32,9 +33,20 @@ interface FreelancerNavbarProps {
 }
 
 export default function FreelancerNavbar({ onSignOut }: FreelancerNavbarProps) {
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const handleMessage = async () => {
+    if (pathname !== "/realTimeChat") {
+      router.push("/realTimeChat");
+    }
+  };
 
   return (
-    <Disclosure as="nav" className="bg-primary-900 fixed top-0 left-0 right-0 z-10">
+    <Disclosure
+      as="nav"
+      className="bg-primary-900 fixed top-0 left-0 right-0 z-10"
+    >
       <div className="mx-auto max-w-[90%] px-2 lg:px-6 xl:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-1/2 transform -translate-x-1/2 flex items-center lg:hidden">
@@ -85,6 +97,7 @@ export default function FreelancerNavbar({ onSignOut }: FreelancerNavbarProps) {
             <button
               type="button"
               className="relative bg-primary-900 px-2 text-gray-200 hover:text-white"
+              onClick={handleMessage}
             >
               <span className="absolute -inset-1.5" />
               <span className="sr-only">View notifications</span>
@@ -97,7 +110,7 @@ export default function FreelancerNavbar({ onSignOut }: FreelancerNavbarProps) {
                   <span className="sr-only">Open user menu</span>
                   <Image
                     alt=""
-                    src={IMAGES.gigo}
+                    src={IMAGES.ahmed}
                     className="h-8 w-8 rounded-full"
                   />
                 </MenuButton>
@@ -108,7 +121,7 @@ export default function FreelancerNavbar({ onSignOut }: FreelancerNavbarProps) {
               >
                 <MenuItem>
                   <Link
-                    href="/"
+                    href="/profile/freelancer"
                     className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-primary-100"
                   >
                     Your Profile
@@ -116,7 +129,7 @@ export default function FreelancerNavbar({ onSignOut }: FreelancerNavbarProps) {
                 </MenuItem>
                 <MenuItem>
                   <Link
-                    href="/"
+                    href="/about"
                     className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-primary-100"
                   >
                     Settings
