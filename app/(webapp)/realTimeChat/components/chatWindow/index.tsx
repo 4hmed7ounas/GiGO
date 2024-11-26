@@ -72,7 +72,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
           >
             {message.sender !== "Me" && (
               <Image
-                src={IMAGES.ahmed}
+                src={IMAGES.profile}
                 alt={message.sender}
                 className="w-8 h-8 rounded-full mx-2"
                 width={800}
@@ -93,7 +93,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
             </div>
             {message.sender === "Me" && (
               <Image
-                src={IMAGES.hadeed}
+                src={IMAGES.profile}
                 alt="Me"
                 className="w-8 h-8 rounded-full mx-2"
                 width={800}

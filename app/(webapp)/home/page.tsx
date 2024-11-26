@@ -7,16 +7,16 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { CiMenuBurger } from "react-icons/ci";
 import Button from "../../components/button";
 import ClientNavbar from "../../components/header/clientnavbar";
-import ServiceCard from "../../components/servicecard";
+import ServiceCard from "../home/components/servicecards";
 import { auth } from "../../firebase/config";
 import AdvanceFilters from "./components/advancefilters";
 
 import { ClipLoader } from "react-spinners";
+import { IMAGES } from "../../../share/assets";
 
 interface Service {
   _id: string;
   imageURL: string;
-  profileImage: string;
   title: string;
   tier: {
     price: number;
@@ -99,7 +99,6 @@ export default function Hero() {
   const Loading = () => (
     <div className="text-center text-lg">
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      
         <ClipLoader color="#3498db" size={50} />
       </div>
     </div>
@@ -137,7 +136,7 @@ export default function Hero() {
         >
           <ServiceCard
             image={service.imageURL}
-            profileImage={service.profileImage}
+            profileImage={IMAGES.profile.src}
             title={"I will do " + service.title}
             price={service.tier.price.toString()}
             gigId={service._id} // Pass _id as prop to ServiceCard

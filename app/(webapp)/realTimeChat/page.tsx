@@ -23,7 +23,7 @@ const App: React.FC = () => {
     {
       id: 1,
       sender: "Hadeed Ahmed",
-      avatarUrl: IMAGES.hadeed.src,
+      avatarUrl: IMAGES.profile.src,
       messages: [
         {
           id: 1,
@@ -55,7 +55,7 @@ const App: React.FC = () => {
     {
       id: 2,
       sender: "Zaid Shabbir",
-      avatarUrl: IMAGES.zaid.src,
+      avatarUrl: IMAGES.profile.src,
       messages: [
         { id: 3, text: "Looking forward to our meeting", sender: "Zaid" },
       ],
@@ -63,7 +63,7 @@ const App: React.FC = () => {
     {
       id: 3,
       sender: "Ahmed Younas",
-      avatarUrl: IMAGES.ahmed.src,
+      avatarUrl: IMAGES.profile.src,
       messages: [
         { id: 1, text: "Hey, can you share the project files?", sender: "Ahmed" },
         { id: 2, text: "Sure, I'll send them shortly!", sender: "Me" },
@@ -72,7 +72,7 @@ const App: React.FC = () => {
     {
       id: 4,
       sender: "Sana Khan",
-      avatarUrl: "/sana.jpg",
+      avatarUrl: IMAGES.profile.src,
       messages: [
         {
           id: 1,
@@ -89,7 +89,7 @@ const App: React.FC = () => {
     {
       id: 5,
       sender: "Ali Raza",
-      avatarUrl: "/ali.jpg",
+      avatarUrl: IMAGES.profile.src,
       messages: [
         {
           id: 1,
@@ -106,7 +106,7 @@ const App: React.FC = () => {
     {
       id: 5,
       sender: "Ali Raza",
-      avatarUrl: "/ali.jpg",
+      avatarUrl: IMAGES.profile.src,
       messages: [
         {
           id: 1,
@@ -123,7 +123,7 @@ const App: React.FC = () => {
     {
       id: 5,
       sender: "Ali Raza",
-      avatarUrl: "/ali.jpg",
+      avatarUrl: IMAGES.profile.src,
       messages: [
         {
           id: 1,
@@ -140,7 +140,7 @@ const App: React.FC = () => {
     {
       id: 5,
       sender: "Ali Raza",
-      avatarUrl: "/ali.jpg",
+      avatarUrl: IMAGES.profile.src,
       messages: [
         {
           id: 1,
@@ -157,7 +157,7 @@ const App: React.FC = () => {
     {
       id: 5,
       sender: "Ali Raza",
-      avatarUrl: "/ali.jpg",
+      avatarUrl: IMAGES.profile.src,
       messages: [
         {
           id: 1,

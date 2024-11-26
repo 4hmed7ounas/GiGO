@@ -10,6 +10,7 @@ import { signOut } from "firebase/auth";
 import { FaClock, FaMoneyBill } from "react-icons/fa";
 import Button from "../../components/button";
 import ClipLoader from "react-spinners/ClipLoader";
+import { IMAGES } from "../../../share/assets";
 
 interface Tier {
   price: number;
@@ -18,7 +19,6 @@ interface Tier {
 
 interface Service {
   imageURL: string;
-  profileImage: string;
   title: string;
   tier: Tier;
   description: string;
@@ -88,7 +88,7 @@ const ServiceDetails = () => {
             </h1>
             <div className="flex items-center my-3">
               <Image
-                src={service.profileImage}
+                src={IMAGES.profile}
                 alt="Profile"
                 width={50}
                 height={50}
@@ -141,7 +141,7 @@ const ServiceDetails = () => {
         </p>
       </div>
       <div className="my-6">
-        <ProfileReview imageUrl="" name="Ahmed Younas" previousReviews={[]} />
+        <ProfileReview imageUrl={IMAGES.profile.src} name="Ahmed Younas" previousReviews={[]} />
       </div>
     </div>
   );

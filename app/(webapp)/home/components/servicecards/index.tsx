@@ -47,7 +47,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
             alt="Profile"
             width={40}
             height={40}
-            className="rounded-full border-2 border-gray-200"
+            className="w-12 h-12 rounded-full border-2 border-gray-200"
           />
           <div className="ml-3">
             <h3 className="text-sm font-medium">{username}</h3> {/* Display username */}

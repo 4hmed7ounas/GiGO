@@ -110,8 +110,8 @@ export default function FreelancerNavbar({ onSignOut }: FreelancerNavbarProps) {
                   <span className="sr-only">Open user menu</span>
                   <Image
                     alt=""
-                    src={IMAGES.ahmed}
-                    className="h-8 w-8 rounded-full"
+                    src={IMAGES.profile}
+                    className="h-10 w-10 rounded-full"
                   />
                 </MenuButton>
               </div>
