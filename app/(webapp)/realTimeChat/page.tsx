@@ -54,12 +54,124 @@ const App: React.FC = () => {
     {
       id: 2,
       sender: "Zaid Shabbir",
-      avatarUrl: "/Zaid.jpg",
+      avatarUrl: "/zaid.jpg",
       messages: [
-        { id: 3, text: "Looking forward to our meeting", sender: "Alex" },
+        { id: 3, text: "Looking forward to our meeting", sender: "Zaid" },
+      ],
+    },
+    {
+      id: 3,
+      sender: "Ahmed Younas",
+      avatarUrl: "/ahmed.jpg",
+      messages: [
+        { id: 1, text: "Hey, can you share the project files?", sender: "Ahmed" },
+        { id: 2, text: "Sure, I'll send them shortly!", sender: "Me" },
+      ],
+    },
+    {
+      id: 4,
+      sender: "Sana Khan",
+      avatarUrl: "/sana.jpg",
+      messages: [
+        {
+          id: 1,
+          text: "Could you help me understand this module?",
+          sender: "Sana",
+        },
+        {
+          id: 2,
+          text: "Yes, let me explain it to you in detail.",
+          sender: "Me",
+        },
+      ],
+    },
+    {
+      id: 5,
+      sender: "Ali Raza",
+      avatarUrl: "/ali.jpg",
+      messages: [
+        {
+          id: 1,
+          text: "Do you have time for a quick catch-up call?",
+          sender: "Ali",
+        },
+        {
+          id: 2,
+          text: "Sure, let me know the time!",
+          sender: "Me",
+        },
+      ],
+    },
+    {
+      id: 5,
+      sender: "Ali Raza",
+      avatarUrl: "/ali.jpg",
+      messages: [
+        {
+          id: 1,
+          text: "Do you have time for a quick catch-up call?",
+          sender: "Ali",
+        },
+        {
+          id: 2,
+          text: "Sure, let me know the time!",
+          sender: "Me",
+        },
+      ],
+    },
+    {
+      id: 5,
+      sender: "Ali Raza",
+      avatarUrl: "/ali.jpg",
+      messages: [
+        {
+          id: 1,
+          text: "Do you have time for a quick catch-up call?",
+          sender: "Ali",
+        },
+        {
+          id: 2,
+          text: "Sure, let me know the time!",
+          sender: "Me",
+        },
+      ],
+    },
+    {
+      id: 5,
+      sender: "Ali Raza",
+      avatarUrl: "/ali.jpg",
+      messages: [
+        {
+          id: 1,
+          text: "Do you have time for a quick catch-up call?",
+          sender: "Ali",
+        },
+        {
+          id: 2,
+          text: "Sure, let me know the time!",
+          sender: "Me",
+        },
+      ],
+    },
+    {
+      id: 5,
+      sender: "Ali Raza",
+      avatarUrl: "/ali.jpg",
+      messages: [
+        {
+          id: 1,
+          text: "Do you have time for a quick catch-up call?",
+          sender: "Ali",
+        },
+        {
+          id: 2,
+          text: "Sure, let me know the time!",
+          sender: "Me",
+        },
       ],
     },
   ];
+  
 
   const [activeUser, setActiveUser] = useState<User | null>(users[0]);
 
@@ -73,7 +185,7 @@ const App: React.FC = () => {
         if (prevUser) {
           return {
             ...prevUser,
-            messages: [...prevUser.messages, newMessage], // Append new message
+            messages: [...prevUser.messages, newMessage],
           };
         }
         return prevUser;
