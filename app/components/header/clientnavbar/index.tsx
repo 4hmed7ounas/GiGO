@@ -8,16 +8,16 @@ import {
   MenuItem,
   MenuItems,
 } from "@headlessui/react";
-import Link from "next/link";
-import { CiMenuBurger } from "react-icons/ci";
-import { RxCross1 } from "react-icons/rx";
-import InputField from "../../input";
-import React, { useState } from "react";
-import Button from "../../button";
-import { FaBell, FaEnvelope } from "react-icons/fa";
-import { IMAGES } from "../../../../share/assets";
 import Image from "next/image";
-import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
+import { CiMenuBurger } from "react-icons/ci";
+import { FaBell, FaEnvelope } from "react-icons/fa";
+import { RxCross1 } from "react-icons/rx";
+import { IMAGES } from "../../../../share/assets";
+import Button from "../../button";
+import InputField from "../../input";
 
 // Define the Service interface
 interface Service {
@@ -29,6 +29,7 @@ interface Service {
     price: number;
     deliveryTime: number;
   };
+  username:string;
 }
 
 const navigation = [{ name: "Orders", href: "/", current: false }];
@@ -38,10 +39,9 @@ function classNames(...classes: (string | boolean)[]) {
 }
 
 interface ClientNavbarProps {
-  onSignOut: () => Promise<void>;
-  onSearchResults?: (data: Service[]) => void; // Make onSearchResults optional
+  onSignOut: () => void;
+  onSearchResults?: (data: Service[]) => void; // Function to handle search results
 }
-
 export default function ClientNavbar({
   onSignOut,
   onSearchResults,

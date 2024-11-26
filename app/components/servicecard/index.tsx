@@ -1,4 +1,3 @@
-// ServiceCard.tsx
 import Image from "next/image";
 import React from "react";
 import { FaStar } from "react-icons/fa";
@@ -9,6 +8,7 @@ interface ServiceCardProps {
   title: string;
   price: string;
   gigId: string; // This is actually the gig _id
+  username: string; // Add username prop
 }
 
 const truncateTitle = (title: string, maxLength: number) => {
@@ -22,7 +22,8 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   profileImage,
   title,
   price,
-  gigId, // Receive _id as userId prop
+  gigId, 
+  username, // Receive username prop
 }) => {
   return (
     <div className="w-70 bg-white rounded-lg shadow-md overflow-hidden">
@@ -49,7 +50,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
             className="rounded-full border-2 border-gray-200"
           />
           <div className="ml-3">
-            <h3 className="text-sm font-medium">John Doe</h3>
+            <h3 className="text-sm font-medium">{username}</h3> {/* Display username */}
             <p className="text-sm text-gray-600">{truncateTitle(title, 35)}</p>
             <p className="text-xs text-gray-500">Gig ID: {gigId}</p> {/* Display _id as Gig ID */}
           </div>

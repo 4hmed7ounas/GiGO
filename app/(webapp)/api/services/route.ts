@@ -28,7 +28,7 @@ export async function POST(request: Request) {
   try {
     const db = await connectMongo(); // Ensure connection before insertion
     const data = await request.json();
-    const { title, keywords, description, tier, imageURL, userId } = data; // Include userId
+    const { title, keywords, description, tier, imageURL, userId,username } = data; // Include userId
 
     const newGigy = new Gigy({
       title,
@@ -37,6 +37,7 @@ export async function POST(request: Request) {
       tier,
       imageURL,
       userId,
+      username,
     });
 
     const result = await db.collection('gigs').insertOne(newGigy);
