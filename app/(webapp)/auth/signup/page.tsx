@@ -16,12 +16,12 @@ import { getFirestore } from "firebase/firestore";
 const db = getFirestore(auth.app);
 
 const Signup: React.FC = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phone, setPhone] = useState("");
-  const [name, setName] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
 

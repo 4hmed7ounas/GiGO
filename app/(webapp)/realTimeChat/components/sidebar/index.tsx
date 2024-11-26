@@ -29,7 +29,7 @@ const Sidebar: React.FC<SidebarProps> = ({ users, onUserClick }) => {
   };
 
   return (
-    <div className="w-1/2 bg-gray-100 border-r border-gray-300 h-screen p-4 overflow-y-auto">
+    <div className="w-1/2 bg-gray-100 border-r border-gray-300 h-screen p-4 overflow-y-auto mt-16">
       <h2 className="text-lg font-semibold mb-4 text-gray-800">All Messages</h2>
       <div className="space-y-4">
         {users.map((user) => (
@@ -41,7 +41,7 @@ const Sidebar: React.FC<SidebarProps> = ({ users, onUserClick }) => {
             <Image
               src={user.avatarUrl || "/default-avatar.jpg"}
               alt={user.sender}
-              width={40} // Corrected image dimensions for better rendering
+              width={40}
               height={40}
               className="w-10 h-10 rounded-full border border-gray-300 shadow-sm"
             />
