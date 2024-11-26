@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import React, { useState } from "react";
+import { IMAGES } from "../../../../../share/assets";
 
 interface Message {
   id: number;
@@ -71,11 +72,11 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
           >
             {message.sender !== "Me" && (
               <Image
-                src="/karan.jpg"
+                src={IMAGES.ahmed}
                 alt={message.sender}
                 className="w-8 h-8 rounded-full mx-2"
-                width={8}
-                height={8}
+                width={800}
+                height={800}
               />
             )}
             <div
@@ -92,11 +93,11 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
             </div>
             {message.sender === "Me" && (
               <Image
-                src="/me.jpg"
+                src={IMAGES.hadeed}
                 alt="Me"
                 className="w-8 h-8 rounded-full mx-2"
-                width={8}
-                height={8}
+                width={800}
+                height={800}
               />
             )}
           </div>
