@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import ProfileReview from "./components/reviews";
 import ClientNavbar from "../../components/header/clientnavbar";
 import { useAuthState } from "react-firebase-hooks/auth";
