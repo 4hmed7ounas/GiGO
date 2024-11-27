@@ -35,7 +35,7 @@ export default function Chatbot() {
     setIsClient(true);
   }, []);
 
-  const API_KEY = "AIzaSyCyjCh7BYvN97CeFr0mQZz4fOqT3syVOCg";
+  const API_KEY = "AIzaSyCosWGsutNBUDJNpdJEU0Lqf39jsAmFo-E";
   const MODEL_NAME = "gemini-1.0-pro-001";
 
   const genAI = useMemo(() => new GoogleGenerativeAI(API_KEY || ""), [API_KEY]);
