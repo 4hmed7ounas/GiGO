@@ -18,8 +18,6 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 
 const navigation = [
-  { name: "Dashboard", href: "/dashboard", current: false },
-  { name: "Listings", href: "/listings", current: false },
   { name: "Orders", href: "/orders", current: false },
   { name: "Earnings", href: "/earnings", current: false },
 ];
@@ -41,6 +39,18 @@ export default function FreelancerNavbar({ onSignOut }: FreelancerNavbarProps) {
       router.push("/realTimeChat");
     }
   };
+
+  const dummyNotifications = [
+    "New message from Ahmed Younas",
+    "New message from Ahmed Younas",
+    "New message from Ahmed Younas",
+    "Your project proposal has been submitted",
+    "New message in Discussion",
+    "New message in Discussion",
+    "New message in Discussion",
+    "New message in Discussion",
+    "New message in Discussion",
+  ];
 
   return (
     <Disclosure
@@ -86,14 +96,35 @@ export default function FreelancerNavbar({ onSignOut }: FreelancerNavbarProps) {
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center px-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <button
-              type="button"
-              className="relative bg-primary-900 px-2 text-gray-200 hover:text-white"
-            >
-              <span className="absolute -inset-1.5" />
-              <span className="sr-only">View notifications</span>
-              <FaBell aria-hidden="true" className="h-6 w-6" />
-            </button>
+            <Menu as="div" className="relative">
+              <MenuButton className="relative bg-primary-900 px-2 text-gray-200 hover:text-white">
+                <span className="sr-only">View notifications</span>
+                <FaBell aria-hidden="true" className="h-6 w-6" />
+              </MenuButton>
+              <MenuItems className="absolute right-0 mt-2 w-64 max-h-80 origin-top-right overflow-y-auto rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+                <div className="py-1">
+                  {dummyNotifications.map((notification, index) => (
+                    <MenuItem key={index}>
+                      {({ active }) => (
+                        <div
+                          className={classNames(
+                            active ? "bg-primary-100" : "",
+                            "block px-4 py-2 text-sm text-gray-700"
+                          )}
+                        >
+                          {notification}
+                        </div>
+                      )}
+                    </MenuItem>
+                  ))}
+                  {dummyNotifications.length === 0 && (
+                    <div className="px-4 py-2 text-sm text-gray-500">
+                      No notifications
+                    </div>
+                  )}
+                </div>
+              </MenuItems>
+            </Menu>
             <button
               type="button"
               className="relative bg-primary-900 px-2 text-gray-200 hover:text-white"
@@ -129,10 +160,10 @@ export default function FreelancerNavbar({ onSignOut }: FreelancerNavbarProps) {
                 </MenuItem>
                 <MenuItem>
                   <Link
-                    href="/about"
+                    href="/paymentMethod"
                     className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-primary-100"
                   >
-                    Settings
+                    Payment Method
                   </Link>
                 </MenuItem>
                 <MenuItem>
