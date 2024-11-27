@@ -15,8 +15,8 @@ export const IMAGES = {
   },
   landingImg: {
     src: `${ASSETS_BASE_URL}/landingimg.webp`,
-    width: 80,
-    height: 60,
+    width: 800,
+    height: 600,
     priority: true,
   },
   ahmed: {
