@@ -103,4 +103,10 @@ export const IMAGES = {
     height: 600,
     priority: true,
   },
+  profile: {
+    src: `${ASSETS_BASE_URL}/profile.webp`,
+    width: 800,
+    height: 600,
+    priority: true,
+  },
 };

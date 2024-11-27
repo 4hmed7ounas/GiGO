@@ -48,7 +48,7 @@ export default function Layout({
   };
 
   return (
-    <div className="flex h-screen bg-primary-50">
+    <div className="flex justify-center bg-primary-50">
       <div>
         {role === "buyer" ? (
           <ClientNavbar onSignOut={handleSignOut} />
