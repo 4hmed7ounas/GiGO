@@ -11,6 +11,8 @@ import { FaClock, FaMoneyBill } from "react-icons/fa";
 import Button from "../../components/button";
 import ClipLoader from "react-spinners/ClipLoader";
 import { IMAGES } from "../../../share/assets";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase/config";
 
 interface Tier {
   price: number;
@@ -18,15 +20,24 @@ interface Tier {
 }
 
 interface Service {
+  userId:string;
   imageURL: string;
   title: string;
   tier: Tier;
   description: string;
+  username: string;
 }
 
 const Loading = () => (
   <div className="text-center text-lg">
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
       <ClipLoader color="#3498db" size={50} />
     </div>
   </div>
@@ -56,7 +67,26 @@ const ServiceDetails = () => {
 
     fetchService();
   }, [gigId]);
+  const [userName, setUserName] = useState<string | null>("Guest");
 
+  useEffect(() => {
+    const fetchUserName = async () => {
+      if (user?.uid) {
+        try {
+          const userDoc = doc(db, "users", user.uid); // Replace "users" with your collection name
+          const docSnapshot = await getDoc(userDoc);
+          if (docSnapshot.exists()) {
+            const data = docSnapshot.data();
+            setUserName(data.name || "Guest"); // Safely handle missing name
+          }
+        } catch (error) {
+          console.error("Error fetching user name:", error);
+        }
+      }
+    };
+
+    fetchUserName();
+  }, [user]);
   useEffect(() => {
     if (typeof window !== "undefined") {
       const userSession = sessionStorage.getItem("user");
@@ -72,7 +102,12 @@ const ServiceDetails = () => {
   };
 
   const handleContactME = async () => {
-    router.push(`/realTimeChat?gigId=${gigId}`);
+    if (service && user) {
+      const chatId = `${user.uid}_${service.userId}`;
+      router.push(`/realTimeChat?chatId=${chatId}&freelancerId=${service.userId}`);
+    } else {
+      console.error("Service or user is not available");
+    }
   };
 
   if (!service) return <Loading />;
@@ -94,7 +129,7 @@ const ServiceDetails = () => {
                 height={50}
                 className="w-16 h-16 rounded-full border-2 border-primary-600"
               />
-              <p className="text-lg font-semibold ml-4">Hadeed Ahmed</p>
+              <p className="text-lg font-semibold ml-4">{service.username}</p>
             </div>
             <div className="flex items-center mt-4">
               <Image
@@ -141,7 +176,11 @@ const ServiceDetails = () => {
         </p>
       </div>
       <div className="my-6">
-        <ProfileReview imageUrl={IMAGES.profile.src} name="Ahmed Younas" previousReviews={[]} />
+        <ProfileReview
+          imageUrl={IMAGES.profile.src}
+          name={userName || ""}
+          previousReviews={[]}
+        />
       </div>
     </div>
   );
