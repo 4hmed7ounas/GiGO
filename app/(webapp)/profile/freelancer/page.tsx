@@ -7,7 +7,7 @@ import { FaPencil } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
 import { auth } from "../../../firebase/config";
 import ProfileCard from "../Components/ProfileCard";
-import CreateGigCard from "../Components/CreateGigCard";
+import CreateGigCard from "../Components/createGigCard";
 import DescCard from "../Components/descCard";
 import EditProfile from "../Components/editProfile";
 import { IMAGES } from "../../../../share/assets";
