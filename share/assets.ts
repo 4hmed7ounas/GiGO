@@ -19,24 +19,6 @@ export const IMAGES = {
     height: 60,
     priority: true,
   },
-  bigcard1img: {
-    src: `${ASSETS_BASE_URL}/bigcard1.jpg`,
-    width: 800,
-    height: 600,
-    priority: true,
-  },
-  bigcard2img: {
-    src: `${ASSETS_BASE_URL}/bigcard2.jpg`,
-    width: 800,
-    height: 600,
-    priority: true,
-  },
-  bigcard3img: {
-    src: `${ASSETS_BASE_URL}/bigcard3.jpg`,
-    width: 800,
-    height: 600,
-    priority: true,
-  },
   ahmed: {
     src: `${ASSETS_BASE_URL}/ahmed.png`,
     width: 800,
