@@ -22,7 +22,7 @@ interface Service {
     price: number;
     deliveryTime: number;
   };
-  username:string;
+  username: string;
 }
 
 export default function Hero() {
@@ -98,7 +98,14 @@ export default function Hero() {
 
   const Loading = () => (
     <div className="text-center text-lg">
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
         <ClipLoader color="#3498db" size={50} />
       </div>
     </div>
@@ -119,35 +126,71 @@ export default function Hero() {
             onClick={handleFilter}
           />
         </div>
+        {/* <div className="px-5 sm:px-10 md:px-20 py-7">
+          {loading ? (
+            <Loading />
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mx-auto">
+              {services.map((service) => (
+                <Link
+                  href={{
+                    pathname: "/servicedetails",
+                    query: {
+                      gigId: service._id, // Pass _id in query
+                    },
+                  }}
+                  key={service._id}
+                >
+                  <ServiceCard
+                    image={service.imageURL}
+                    profileImage={IMAGES.profile.src}
+                    title={"I will do " + service.title}
+                    price={service.tier.price.toString()}
+                    gigId={service._id} // Pass _id as prop to ServiceCard
+                    username={service.username} // Pass username to ServiceCard
+                  />
+                </Link>
+              ))}
+            </div>
+          )}
+        </div> */}
         <div className="px-5 sm:px-10 md:px-20 py-7">
-  {loading ? (
-    <Loading />
-  ) : (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mx-auto">
-      {services.map((service) => (
-        <Link
-          href={{
-            pathname: "/servicedetails",
-            query: {
-              gigId: service._id, // Pass _id in query
-            },
-          }}
-          key={service._id}
-        >
-          <ServiceCard
-            image={service.imageURL}
-            profileImage={IMAGES.profile.src}
-            title={"I will do " + service.title}
-            price={service.tier.price.toString()}
-            gigId={service._id} // Pass _id as prop to ServiceCard
-            username={service.username} // Pass username to ServiceCard
-          />
-        </Link>
-      ))}
-    </div>
-  )}
-</div>
-
+          {loading ? (
+            <Loading />
+          ) : services.length > 0 ? ( // Check if there are services to display
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mx-auto">
+              {services.map((service) => (
+                <Link
+                  href={{
+                    pathname: "/servicedetails",
+                    query: {
+                      gigId: service._id, // Pass _id in query
+                    },
+                  }}
+                  key={service._id}
+                >
+                  <ServiceCard
+                    image={service.imageURL}
+                    profileImage={IMAGES.profile.src}
+                    title={"I will do " + service.title}
+                    price={service.tier.price.toString()}
+                    gigId={service._id} // Pass _id as prop to ServiceCard
+                    username={service.username} // Pass username to ServiceCard
+                  />
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-20">
+              <h2 className="text-2xl font-semibold text-gray-600">
+                No Results Found
+              </h2>
+              <p className="text-gray-500">
+                Try adjusting your filters or searching for something else.
+              </p>
+            </div>
+          )}
+        </div>
       </div>
       <AdvanceFilters
         onClose={() => setIsPopupOpen(false)}
