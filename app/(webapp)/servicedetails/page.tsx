@@ -11,9 +11,7 @@ import { FaClock, FaMoneyBill } from "react-icons/fa";
 import ClipLoader from "react-spinners/ClipLoader";
 import { IMAGES } from "../../../share/assets";
 import Button from "../../components/button";
-import ClientNavbar from "../../components/header/clientnavbar";
 import { auth, db } from "../../firebase/config";
-import ProfileReview from "./components/reviews";
 
 interface Tier {
   price: number;
