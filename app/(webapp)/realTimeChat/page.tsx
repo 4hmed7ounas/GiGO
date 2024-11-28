@@ -1,212 +1,133 @@
 "use client";
-
-import React, { useState } from "react";
+import { signOut } from "firebase/auth";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import ClientNavbar from "../../components/header/clientnavbar";
+import { auth } from "../../firebase/config";
 import Sidebar from "./components/sidebar";
-import ChatWindow from "./components/chatWindow";
-import { IMAGES } from "../../../share/assets";
 
-interface Message {
-  id: number;
-  text: string;
-  sender: string;
-}
 
 interface User {
-  id: number;
-  sender: string;
-  avatarUrl?: string;
-  messages: Message[];
+  id: string;
+  name: string;
 }
 
-const App: React.FC = () => {
-  const users: User[] = [
-    {
-      id: 1,
-      sender: "Hadeed Ahmed",
-      avatarUrl: IMAGES.profile.src,
-      messages: [
-        {
-          id: 1,
-          text: "Hi there! I found your profile, and I’m looking for someone to help build a website. Are you available for new projects?",
-          sender: "Me",
-        },
-        {
-          id: 2,
-          text: "Hello! Thanks for reaching out. I’d be happy to discuss your project. Could you tell me more about what you're looking for?",
-          sender: "Hadeed",
-        },
-        {
-          id: 3,
-          text: "Sure! I need a modern, responsive website for my business. ",
-          sender: "Me",
-        },
-        {
-          id: 4,
-          text: "I’d like it to have a homepage, a few service pages, and a contact form.",
-          sender: "Me",
-        },
-        {
-          id: 5,
-          text: "It would be great if we could integrate social media feeds too. Do you have experience with that?",
-          sender: "Me",
-        },
-      ],
-    },
-    {
-      id: 2,
-      sender: "Zaid Shabbir",
-      avatarUrl: IMAGES.profile.src,
-      messages: [
-        { id: 3, text: "Looking forward to our meeting", sender: "Zaid" },
-      ],
-    },
-    {
-      id: 3,
-      sender: "Ahmed Younas",
-      avatarUrl: IMAGES.profile.src,
-      messages: [
-        { id: 1, text: "Hey, can you share the project files?", sender: "Ahmed" },
-        { id: 2, text: "Sure, I'll send them shortly!", sender: "Me" },
-      ],
-    },
-    {
-      id: 4,
-      sender: "Sana Khan",
-      avatarUrl: IMAGES.profile.src,
-      messages: [
-        {
-          id: 1,
-          text: "Could you help me understand this module?",
-          sender: "Sana",
-        },
-        {
-          id: 2,
-          text: "Yes, let me explain it to you in detail.",
-          sender: "Me",
-        },
-      ],
-    },
-    {
-      id: 5,
-      sender: "Ali Raza",
-      avatarUrl: IMAGES.profile.src,
-      messages: [
-        {
-          id: 1,
-          text: "Do you have time for a quick catch-up call?",
-          sender: "Ali",
-        },
-        {
-          id: 2,
-          text: "Sure, let me know the time!",
-          sender: "Me",
-        },
-      ],
-    },
-    {
-      id: 5,
-      sender: "Ali Raza",
-      avatarUrl: IMAGES.profile.src,
-      messages: [
-        {
-          id: 1,
-          text: "Do you have time for a quick catch-up call?",
-          sender: "Ali",
-        },
-        {
-          id: 2,
-          text: "Sure, let me know the time!",
-          sender: "Me",
-        },
-      ],
-    },
-    {
-      id: 5,
-      sender: "Ali Raza",
-      avatarUrl: IMAGES.profile.src,
-      messages: [
-        {
-          id: 1,
-          text: "Do you have time for a quick catch-up call?",
-          sender: "Ali",
-        },
-        {
-          id: 2,
-          text: "Sure, let me know the time!",
-          sender: "Me",
-        },
-      ],
-    },
-    {
-      id: 5,
-      sender: "Ali Raza",
-      avatarUrl: IMAGES.profile.src,
-      messages: [
-        {
-          id: 1,
-          text: "Do you have time for a quick catch-up call?",
-          sender: "Ali",
-        },
-        {
-          id: 2,
-          text: "Sure, let me know the time!",
-          sender: "Me",
-        },
-      ],
-    },
-    {
-      id: 5,
-      sender: "Ali Raza",
-      avatarUrl: IMAGES.profile.src,
-      messages: [
-        {
-          id: 1,
-          text: "Do you have time for a quick catch-up call?",
-          sender: "Ali",
-        },
-        {
-          id: 2,
-          text: "Sure, let me know the time!",
-          sender: "Me",
-        },
-      ],
-    },
-  ];
+const RealTimeChat: React.FC = () => {
+  const [user] = useAuthState(auth); // Get the current user from Firebase Authentication
+  const [users, setUsers] = useState<User[]>([]); // Store the users
+  const router = useRouter();
+  const db = getFirestore(); // Initialize Firestore
+
+  // Redirect user to login page if not authenticated
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const userSession = sessionStorage.getItem("user");
+      if (!user && !userSession) {
+        router.push("/"); // Redirect to login page if user is not authenticated
+      }
+    }
+  }, [user, router]);
+
   
 
-  const [activeUser, setActiveUser] = useState<User | null>(users[0]);
+ useEffect(() => {
+  if (user) {
+    const fetchUsers = async () => {
+      try {
+        const fetchUserName = async (uid: string): Promise<string> => {
+          try {
+            const userDoc = doc(db, "users", uid);
+            const userSnapshot = await getDoc(userDoc);
+            if (userSnapshot.exists()) {
+              const userData = userSnapshot.data();
+              return userData?.name || "Unknown User";
+            } else {
+              return "User not found";
+            }
+          } catch (error) {
+            console.error("Error fetching user data:", error);
+            return "Error fetching name";
+          }
+        };
 
-  const handleUserClick = (user: User) => {
-    setActiveUser(user);
-  };
-
-  const handleSendMessage = (newMessage: Message) => {
-    if (activeUser) {
-      setActiveUser((prevUser) => {
-        if (prevUser) {
-          return {
-            ...prevUser,
-            messages: [...prevUser.messages, newMessage],
-          };
+        const response = await fetch(`/api/conversation?userId=${user.uid}`);
+        if (response.ok) {
+          const data = await response.json();
+          const otherUsers = await Promise.all(
+            data.map(async (uid: string) => {
+              const name = await fetchUserName(uid);
+              return { id: uid, name };
+            })
+          );
+          setUsers(otherUsers);
         }
-        return prevUser;
-      });
-    }
+      } catch (error) {
+        console.error("Error fetching conversation data:", error);
+      }
+    };
+
+    fetchUsers();
+  }
+}, [user, db]);
+
+
+  // Handle user sign out
+  const handleSignOut = async () => {
+    await signOut(auth);
+    sessionStorage.removeItem("user");
   };
+
+  // const [activeUser, setActiveUser] = useState<User | null>(users[0]);
+
+  // const handleUserClick = (user: User) => {
+  //   setActiveUser(user);
+  // };
+
+  // const handleSendMessage = (newMessage: Message) => {
+  //   if (activeUser) {
+  //     setActiveUser((prevUser) => {
+  //       if (prevUser) {
+  //         return {
+  //           ...prevUser,
+  //           messages: [...prevUser.messages, newMessage],
+  //         };
+  //       }
+  //       return prevUser;
+  //     });
+  //   }
+  // };
+
 
   return (
-    <div className="flex">
-      <Sidebar users={users} onUserClick={handleUserClick} />
-      {activeUser && (
+    <div>
+      <ClientNavbar onSignOut={handleSignOut} />
+
+      {/* Check if user is logged in and display their name */}
+      <div className="text-center mt-16">
+        {user ? (
+          <h2 className="text-2xl font-semibold">
+            Welcome, {user.displayName || "User"}!<h1>{user.uid}</h1>
+          </h2>
+        ) : (
+          <p>Loading user data...</p>
+        )}
+      </div>
+
+      {/* Display sidebar with users */}
+      <Sidebar users={users}  />
+      {/* {activeUser && (
         <ChatWindow
           messages={activeUser.messages}
           sender={activeUser.sender}
           onSendMessage={handleSendMessage}
           onClose={() => setActiveUser(null)}
         />
-      )}
+      )} */}
+
     </div>
   );
 };
 
-export default App;
+export default RealTimeChat;
