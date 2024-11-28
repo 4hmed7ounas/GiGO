@@ -1,18 +1,17 @@
 "use client";
+import { signOut } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { Suspense, useEffect, useState } from "react";
 import ProfileReview from "./components/reviews";
 import ClientNavbar from "../../components/header/clientnavbar";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase/config";
-import { signOut } from "firebase/auth";
 import { FaClock, FaMoneyBill } from "react-icons/fa";
-import Button from "../../components/button";
 import ClipLoader from "react-spinners/ClipLoader";
 import { IMAGES } from "../../../share/assets";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../firebase/config";
+import Button from "../../components/button";
+import { auth, db } from "../../firebase/config";
 
 interface Tier {
   price: number;
@@ -103,8 +102,8 @@ const ServiceDetails = () => {
 
   const handleContactME = async () => {
     if (service && user) {
-      const chatId = `${user.uid}_${service.userId}`;
-      router.push(`/realTimeChat?chatId=${chatId}&freelancerId=${service.userId}`);
+      
+      router.push(`/realTimeChat?gigId=${gigId}&userId=${user.uid}&freelancerId=${service.userId}`);
     } else {
       console.error("Service or user is not available");
     }
