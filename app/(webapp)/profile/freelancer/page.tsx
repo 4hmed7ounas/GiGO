@@ -10,6 +10,7 @@ import ProfileCard from "../Components/ProfileCard";
 import CreateGigCard from "../Components/createGigCard";
 import DescCard from "../Components/descCard";
 import EditProfile from "../Components/editProfile";
+import GigCard from "../Components/gigCard";
 import { IMAGES } from "../../../../share/assets";
 import { FaPlus } from "react-icons/fa";
 
@@ -153,6 +154,14 @@ const FreelancerProfile: React.FC = () => {
                   <div className="flex gap-4">
                     <div onClick={handleCreateGig}>
                       <CreateGigCard title="CREATE A GIG" icon={FaPlus} />
+                    </div>
+                    <div onClick={handleCreateGig}>
+                      <GigCard
+                        image={IMAGES.ahmed.src}
+                        title={"I will do "}
+                        price={"120"}
+                        gigId={""}
+                      />
                     </div>
                   </div>
                   <div>
