@@ -3,16 +3,16 @@ import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { FaPlus } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
+import { IMAGES } from "../../../../share/assets";
 import { auth } from "../../../firebase/config";
 import ProfileCard from "../Components/ProfileCard";
 import CreateGigCard from "../Components/createGigCard";
 import DescCard from "../Components/descCard";
 import EditProfile from "../Components/editProfile";
 import GigCard from "../Components/gigCard";
-import { IMAGES } from "../../../../share/assets";
-import { FaPlus } from "react-icons/fa";
 
 const db = getFirestore(auth.app);
 
@@ -25,9 +25,21 @@ interface UserData {
   description?: string;
 }
 
+interface Gig {
+  _id: string;
+  title: string;
+  keywords: string[];
+  description: string;
+  tier: object;
+  imageURL: string;
+  userId: string;
+  username: string;
+}
+
 const FreelancerProfile: React.FC = () => {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
+  const [gigs, setGigs] = useState<Gig[]>([]); // Store gigs in state
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState<UserData>({
@@ -35,7 +47,7 @@ const FreelancerProfile: React.FC = () => {
     username: "",
     role: "",
     bio: "",
-    description: "", // Initialize description in formData
+    description: "",
   });
   const router = useRouter();
 
@@ -52,6 +64,26 @@ const FreelancerProfile: React.FC = () => {
           setFormData(data);
         } else {
           console.error("No such document!");
+        }
+
+        // Fetch gigs for the user after authentication
+        try {
+          const response = await fetch(`/api/myGigs`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userId }),
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            setGigs(data); // Store gigs in state
+          } else {
+            console.error("Error fetching gigs:", response.statusText);
+          }
+        } catch (error) {
+          console.error("Error fetching gigs:", error);
         }
       }
       setLoading(false);
@@ -155,20 +187,20 @@ const FreelancerProfile: React.FC = () => {
                     <div onClick={handleCreateGig}>
                       <CreateGigCard title="CREATE A GIG" icon={FaPlus} />
                     </div>
-                    <div onClick={handleCreateGig}>
-                      <GigCard
-                        image={IMAGES.ahmed.src}
-                        title={"I will do "}
-                        price={"120"}
-                        gigId={""}
-                      />
-                    </div>
+                    {gigs.map((gig) => (
+                      <div key={gig._id}>
+                        <GigCard
+                          image={gig.imageURL}
+                          title={gig.title}
+                          price={"120"} // Add actual pricing logic if needed
+                          gigId={gig._id}
+                        />
+                      </div>
+                    ))}
                   </div>
                   <div>
                     <DescCard
-                      description={
-                        userData.description || "No description provided"
-                      }
+                      description={userData.description || "No description provided"}
                     />
                   </div>
                 </div>

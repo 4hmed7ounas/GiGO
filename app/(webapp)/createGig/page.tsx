@@ -1,12 +1,12 @@
 "use client";
 
+import { signOut } from "firebase/auth";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { Suspense, useState } from "react";
-import InputField from "../../components/input";
-import FreelancerNavbar from "../../components/header/freelancernavbar";
 import { useAuthState } from "react-firebase-hooks/auth";
+import FreelancerNavbar from "../../components/header/freelancernavbar";
+import InputField from "../../components/input";
 import { auth } from "../../firebase/config";
-import { signOut } from "firebase/auth";
 
 function MakeServicesContent() {
   const searchParams = useSearchParams(); // Get search params
@@ -90,6 +90,7 @@ function MakeServicesContent() {
         setTier({ price: "", deliveryTime: "" });
         setDescription("");
         setImageURL("");
+        router.push("/profile/freelancer")
       } else {
         throw new Error("Failed to create service");
       }
