@@ -30,7 +30,10 @@ interface Gig {
   title: string;
   keywords: string[];
   description: string;
-  tier: object;
+  tier: {
+    price: number;
+    deliveryTime: number;
+  };
   imageURL: string;
   userId: string;
   username: string;
@@ -183,7 +186,7 @@ const FreelancerProfile: React.FC = () => {
                   />
                 </div>
                 <div className="flex flex-col gap-4 w-[65%]">
-                  <div className="flex gap-4">
+                  <div className="flex flex-wrap gap-4">
                     <div onClick={handleCreateGig}>
                       <CreateGigCard title="CREATE A GIG" icon={FaPlus} />
                     </div>
@@ -192,7 +195,7 @@ const FreelancerProfile: React.FC = () => {
                         <GigCard
                           image={gig.imageURL}
                           title={gig.title}
-                          price={"120"} // Add actual pricing logic if needed
+                          price={gig.tier.price.toString()} // Add actual pricing logic if needed
                           gigId={gig._id}
                         />
                       </div>
