@@ -1,20 +1,20 @@
 "use client";
 
-import { signOut } from "firebase/auth";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { Suspense, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import FreelancerNavbar from "../../components/header/freelancernavbar";
 import InputField from "../../components/input";
+import FreelancerNavbar from "../../components/header/freelancernavbar";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/config";
+import { signOut } from "firebase/auth";
 
 function MakeServicesContent() {
-  const searchParams = useSearchParams(); // Get search params
-  const userId = searchParams.get("userId"); // Retrieve userId from query parameters
-  const username = searchParams.get("username"); // Retrieve username from query parameters
+  const searchParams = useSearchParams();
+  const userId = searchParams.get("userId");
+  const username = searchParams.get("username");
 
   const [title, setTitle] = useState("");
-  const [keywords, setkeywords] = useState<string[]>([]);
+  const [keywords, setKeywords] = useState<string[]>([]);
   const [tier, setTier] = useState({
     price: "",
     deliveryTime: "",
@@ -38,23 +38,51 @@ function MakeServicesContent() {
     }
     const newKeyWord = keyWordInput.trim().replace(",", "");
     if (newKeyWord && !keywords.includes(newKeyWord)) {
-      setkeywords([...keywords, newKeyWord]);
+      setKeywords([...keywords, newKeyWord]);
       setKeyWordInput("");
       setError("");
     }
   };
 
   const handleRemoveKeyword = (keyword: string) => {
-    setkeywords(keywords.filter((kw) => kw !== keyword));
+    setKeywords(keywords.filter((kw) => kw !== keyword));
   };
 
   const handleTierChange = (field: string, value: string) => {
+    if (parseFloat(value) < 0) {
+      setError("Values cannot be negative.");
+      return;
+    }
     setTier({ ...tier, [field]: value });
+  };
+
+  const validateInputs = () => {
+    if (title.trim() === "") {
+      setError("Title is required.");
+      return false;
+    }
+    if (description.trim() === "") {
+      setError("Description is required.");
+      return false;
+    }
+    if (tier.price.trim() === "" || parseFloat(tier.price) <= 0) {
+      setError("Price must be a positive number.");
+      return false;
+    }
+    if (tier.deliveryTime.trim() === "" || parseInt(tier.deliveryTime) <= 0) {
+      setError("Delivery time must be a positive number.");
+      return false;
+    }
+    return true;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+
+    if (!validateInputs()) {
+      return;
+    }
 
     const formData = {
       title,
@@ -65,11 +93,9 @@ function MakeServicesContent() {
       },
       description,
       imageURL,
-      userId: userId || "", // Include userId in formData
-      username: username || "", // Include username in formData
+      userId: userId || "",
+      username: username || "",
     };
-
-    console.log(formData);
 
     try {
       const response = await fetch("/api/services", {
@@ -83,14 +109,15 @@ function MakeServicesContent() {
       if (response.ok) {
         const result = await response.json();
         alert(result.message);
+
         // Clear form on success
         setTitle("");
-        setkeywords([]);
+        setKeywords([]);
         setKeyWordInput("");
         setTier({ price: "", deliveryTime: "" });
         setDescription("");
         setImageURL("");
-        router.push("/profile/freelancer")
+        router.push("/profile/freelancer");
       } else {
         throw new Error("Failed to create service");
       }
@@ -193,7 +220,9 @@ function MakeServicesContent() {
               type="number"
               placeholder="Delivery Time (days)"
               value={tier.deliveryTime}
-              onChange={(e) => handleTierChange("deliveryTime", e.target.value)}
+              onChange={(e) =>
+                handleTierChange("deliveryTime", e.target.value)
+              }
               required
               className="w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900 placeholder:text-gray-400"
             />
